@@ -1,0 +1,16 @@
+{
+    "name": "naver-booking-fe",
+    "version": "1.0.0",
+    "description": "2025 Clone Coding Project: Naver Booking",
+    "main": "public/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/F012R/project-3-naver-booking-fe.git"
+    },
+    "author": "F012R",
+    "license": "ISC",
+    "homepage": "https://github.com/F012R/project-3-naver-booking-fe#readme"
+}
