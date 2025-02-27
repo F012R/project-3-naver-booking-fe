@@ -160,7 +160,7 @@
         }
     }
 
-    // 데이터를 가져오는 함수
+    // json 데이터를 가져오는 함수
     async function getProductData(url) {
         try {
             const response = await fetch(url);
@@ -191,5 +191,17 @@
 
     // "전체" 카테고리로 데이터 만든 후 보여줌 
     productData.initDataAndShowFirst(eventTab);
+
+    // 더보기 버튼을 누르면
+    moreButton.addEventListener("click", function() {   
+        const tab = moreButton.closest(".event-tab");
+        var loadedDataNum = tab.querySelectorAll("article").length;
+        var isCountUnder = productData.showData(loadedDataNum, loadedDataNum+MORE_NUM, tab);
+
+        // 추가로 보여줄 데이터가 없으면 더보기 버튼은 사라짐 
+        if (!isCountUnder) {
+            moreButton.style.display = "none";
+        }
+    });
     
 </script>
