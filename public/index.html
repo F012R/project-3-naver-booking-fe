@@ -21,6 +21,39 @@
       <section id="product"><!-- more 포함 --></section>
     </main>
     <footer id="footer"><!-- top 포함 --></footer>
+
+    <script>
+      // header 컴포넌트 추가
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("../pages/main/header.html")
+          .then((response) => response.text())
+          .then((data) => {
+            const headerElement = document.getElementById("header");
+            headerElement.innerHTML = data;
+    
+            // header 이벤트 리스너 추가
+            setTimeout(() => {
+              const userEmail = localStorage.getItem("userEmail");
+              const emailElement = document.getElementById("user-email");
+              
+              if (emailElement) {
+                emailElement.textContent = userEmail ? userEmail : "예약확인";
+    
+                emailElement.addEventListener("click", function () {
+                  if (userEmail) {
+                    window.location.href = "my-booking.html";
+                  } else {
+                    window.location.href = "login.html";
+                  }
+                });
+              }
+            }, 100);
+          })
+          .catch((error) => console.error("header.html 로딩 중 오류 발생:", error));
+      });
+    </script>
+    
+
     <script src="../global/global.js"></script>
     <script src="index.js"></script>
   </body>
