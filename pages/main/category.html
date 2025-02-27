@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 예약 카테고리</title>
+    <style>
+        .category-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-bottom: 1px solid #e2e5e8;
+        }
+        .category-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid #e2e5e8;
+        }
+        .category-tabs {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .category-tabs li {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #333;
+        }
+        .category-tabs li.active {
+            font-weight: bold;
+            color: #0aba16;
+        }
+        .category-tabs li.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 60%;
+            height: 3px;
+            background-color: #0aba16;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .category-info {
+            padding: 10px;
+            text-align: center;
+        }
+        .item-count {
+            font-size: 16px;
+            color: #333;
+        }
+        .item-count span {
+            color: #F82222;
+            font-weight: bold;
+        }
+        @media screen and (max-width: 320px) {
+            .category-tabs li {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <section class="category-container" id="category">
+        <nav class="category-wrapper">
+            <ul class="category-tabs">
+                <li data-category="all" class="active">전체리스트</li>
+                <li data-category="exhibition">전시</li>
+                <li data-category="musical">뮤지컬</li>
+                <li data-category="concert">콘서트</li>
+                <li data-category="classic">클래식</li>
+                <li data-category="play">연극</li>
+            </ul>
+        </nav>
+        <aside class="category-info">
+            <p class="item-count">바로 예매 가능한 전시, 공연, 행사가 <span>0개</span> 있습니다</p>
+        </aside>
+        
+    </section>
+</body>
+</html>
