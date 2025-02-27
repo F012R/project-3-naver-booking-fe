@@ -56,8 +56,20 @@
         // localStorage에서 로그인한 이메일 가져오기
         const userEmail = localStorage.getItem("userEmail");
 
+        // 비회원로그인: "이메일" 표시
+        // 비로그인: "예약확인" 표시
         const emailElement = document.getElementById("user-email");
         emailElement.textContent = userEmail ? userEmail : "예약확인";
+
+        emailElement.addEventListener("click", function () {
+          if (userEmail) {
+            // 로그인 사용자가 클릭했을 때: 나의 예약 확인 페이지로 이동
+            window.location.href = "../my-booking.html"; 
+          } else {
+            // 비로그인 사용자가 클릭했을 때: 비회원 예약 확인 페이지로 이동
+            window.location.href = "../login.html"; 
+          }
+        });
       });
     </script>
   </body>
