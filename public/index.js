@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 데이터 가져오는 함수
     function fetchDataByCategory(category) {
-      fetch(`http://localhost:3000/api/data?category=${category}`)
+      fetch(`/api/data?category=${category}`)
         .then((response) => {
           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
           return response.json();
