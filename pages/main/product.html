@@ -13,7 +13,7 @@
 </div>
 
 
-<script type="text/template" id="itemList">     
+<script type="text/template" class="template-item-list">     
     <article class="product-box">
         <a href="detail.html?id=${id}" class="item-book">
               <div class="wrap-product-img-th">
@@ -150,7 +150,7 @@
         },
         // 템플릿에 데이터를 넣어 반환
         makeProductListTemplate: function(data) {
-            var html = document.getElementById("itemList").innerHTML;
+            var html = document.querySelector(".template-item-list").innerHTML;
             var resultHTML = html.replaceAll("${id}", data.id)
                             .replace("${imgUrl}", "../assets/images/"+data.imgUrl)
                             .replaceAll("${description}", data.description)
