@@ -30,6 +30,7 @@
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
+  background-color: #d4dadf;
 }
 
 body {
@@ -38,6 +39,11 @@ body {
   margin: 0;
   min-width: 320px;
   max-width: 414px;
+}
+
+footer {
+  background-color: #e9ecef;
+  text-align: center;
 }
 
 main {
@@ -62,6 +68,7 @@ pre {
 
 a {
   background-color: transparent;
+  text-decoration: none;
 }
 
 abbr[title] {
