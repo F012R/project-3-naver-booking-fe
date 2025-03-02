@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  loadComponent(
-    "promotion",
-    "../pages/main/promotion.html",
-    loadPromotionBanner
-  );
+  loadComponent("header", "../pages/main/header.html", setupLoginStatusElement);
+  loadComponent("promotion", "../pages/main/promotion.html", loadPromotionBanner);
   loadComponent("footer", "../pages/main/footer.html");
 });
 
@@ -15,6 +12,18 @@ function loadComponent(id, url, callback) {
       if (callback) callback();
     })
     .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
+}
+
+function setupLoginStatusElement() {
+  const userEmail = localStorage.getItem("userEmail");
+  const emailElement = document.getElementById("user-email");
+  
+  if (emailElement) {
+    emailElement.textContent = userEmail ? userEmail : "예약확인";
+    emailElement.addEventListener("click", function () {
+      window.location.href = userEmail ? "my-booking.html" : "login.html";
+    });
+  }
 }
 
 function loadPromotionBanner() {
