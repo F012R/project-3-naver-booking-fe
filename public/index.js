@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+  loadComponent("footer", "../pages/main/footer.html");
+});
+
+function loadComponent(id, url, callback) {
+  fetch(url)
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById(id).innerHTML = data;
+      if (callback) callback();
+    })
+    .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
+}
+
  // header 컴포넌트 추가
  document.addEventListener("DOMContentLoaded", function () {
     loadComponent("header", "../pages/main/header.html", () => {
