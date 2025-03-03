@@ -1,17 +1,15 @@
 // product.html 불러오기 
 document.addEventListener("DOMContentLoaded", function() {
-  loadComponent("product", "../pages/main/product.html");
+  loadComponent("product", "../pages/main/product.html", initProductSection);
 });
 
 
-function loadComponent(id, url) {
+function loadComponent(id, url, callback) {
   fetch(url)
     .then((response) => response.text())
     .then((data) => {
       document.getElementById(id).innerHTML = data;
-      if (id === "product") {
-        initProductSection();
-      }
+      if (callback) callback();
     })
     .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
 }
@@ -123,9 +121,9 @@ async function getProductData(url) {
   }
 }
 
-// 다른 카테고리를 선택하면 
+// 다른 카테고리를 선택하면 product 영역 변화 
 function changeCategory(categoryId, targetElement) {
-  // 상품 목록 지우기 
+  // 기존의 상품 목록 지우기 
   targetElement.querySelector(".left-container").innerHTML = "";
   targetElement.querySelector(".right-container").innerHTML = "";
 
