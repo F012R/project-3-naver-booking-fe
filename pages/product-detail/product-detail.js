@@ -64,7 +64,7 @@ function loadJsonData() {
 
       // detailmap.json 데이터 처리
       if (detailMapItem) {
-        const storeAddr = document.querySelector('.store-addr-bold');
+        const storeAddr = document.querySelector('.location-container span');
         const storeAddrOld = document.querySelector('.store-addr .addr-old-detail');
         const storeTel = document.querySelector('.lst-store-info .item .item-lt span');
 

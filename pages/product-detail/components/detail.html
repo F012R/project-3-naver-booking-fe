@@ -120,8 +120,9 @@
         max-height: 40%;
     }
     .store-name {
-        margin-top: 30px;  /* 위쪽 간격 */
-        margin-bottom: 20px;  /* 아래쪽 간격 */
+        margin-top: 10px; 
+        margin-bottom: 10px;
+        font-weight: bold;  
     }
 
     .store-map {
@@ -131,20 +132,23 @@
     }
     
     i.fa-location-dot {
-        display: inline-block !important;
-        visibility: visible !important;
-        color: gray !important; /* 일단 확실하게 보이게 */
+        display: contents ;
+        color: gray ; 
+        
     }
 
     .fa-map-marker-alt {
-        font-size: 16px;  /* 아이콘 크기 */
-        color: black;     /* 아이콘 색상 */
+        font-size: 16px;  
+        color: black;     
     }
-
-
+    .fa-solid.fa-phone {
+        color: gray; 
+    }
+    .location-container{
+        margin-top: 5px; 
+    }
 </style>
 
-    
     <section class="section-info-tab">
         <nav>
             <ul class="info-tab-lst">
@@ -178,14 +182,12 @@
             <article class="box-store-info no-topline">
                 <a href="#" class="store-location" title="지도웹으로 연결">
                     <img class="store-map img-thumb" alt="map" src="${mapImgUrl}">
-                    <span class="img-border"></span>
-                    <span class="btn-map"><i class="spr-book2 ico-mapview"></i></span>
                 </a>
                 <address class="store-info">
-                    <span class="store-name">${description}</span>
-                    <p class="store-addr store-addr-bold">
+                    <div class="store-name">${description}</div>
+                    <div class="location-container">
                         <i class="fa-solid fa-location-dot"></i> <span>${place_street}</span>
-                    </p>
+                    </div>
                     <p class="store-addr">
                         <span class="addr-old">지번</span>
                         <span class="addr-old-detail">${place_lot}</span>
