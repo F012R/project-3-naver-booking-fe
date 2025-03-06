@@ -22,33 +22,20 @@
         margin-top: 10px;
     }
 
-    .fold-btn::after{
-        font-family: "Naver booking Icons", sans-serif;
-        content: "\EA08";   /* 아이콘 V */ 
-        font-size: 1.5em;
+    .description-container img { 
+        height: 0.7em;
         vertical-align: middle;
-        color: lightgray;
-    }
-
-    .unfold-btn::after{
-        font-family: "Naver booking Icons", sans-serif;
-        content: "\EA1C";   /* 아이콘 ^ */
-        font-size: 1.5em;
-        vertical-align: middle;
-        color: lightgray;
-    }
-
-
+        margin-left: 5px;
+    } 
 </style>
 
 <section class="description-container">
-
     <div class="preview-container">
         <div class="description-preview description-text">
             
         </div>
         <button class="fold-btn">
-            펼치기 
+            펼치기 <img src="../../assets/images/spr_book_folding.png" alt="∨">
         </button>
     </div>
         
@@ -57,8 +44,7 @@
            
         </div>
         <button class="unfold-btn">
-            접기
+            접기  <img src="../../assets/images/spr_book_unfolding.png" alt="^">
         </button>
     </div>
 </section>
-
