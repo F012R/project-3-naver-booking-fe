@@ -87,6 +87,7 @@
     border-radius: 20px;
     font-size: 14px;
     z-index: 3;
+    display: none;
   }
 
   .prev-btn,
@@ -101,7 +102,7 @@
     z-index: 4;
     width: 40px;
     height: 60px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
   }
@@ -117,13 +118,12 @@
   .arrow-img {
     width: 20px;
     height: auto;
+    filter: brightness(0) invert(1);
   }
 </style>
 
 <div class="slider-container">
   <div class="slider">
-    <img src="/assets/images/2_ma_4.png" class="slide" alt="첫 번째 이미지" />
-    <img src="/assets/images/4_ma_12.png" class="slide" alt="두 번째 이미지" />
   </div>
   <section id="header-component" class="gnb">
     <div class="left">
@@ -133,7 +133,7 @@
       <span id="user-email">예약확인</span>
     </div>
   </section>
-  <div class="slide-number">1/2</div>
+  <div class="slide-number">1/1</div>
   <div class="slide-title">1번째 슬라이드</div>
   <button class="prev-btn">
     <img src="/assets/images/arrow_l.png" alt="이전" class="arrow-img" />
@@ -145,42 +145,157 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const sliderContainer = document.querySelector(".slider-container");
     const slider = document.querySelector(".slider");
     const slides = document.querySelectorAll(".slide");
     const prevBtn = document.querySelector(".prev-btn");
     const nextBtn = document.querySelector(".next-btn");
     const slideTitle = document.querySelector(".slide-title");
     const slideNumber = document.querySelector(".slide-number");
+
+    // 임시 API 응답 데이터 (실제 API 연결 시 이 부분을 대체)
+    const mockApiResponse = {
+      success: true,
+      data: [
+        { type: "ma", src: "/assets/images/2_ma_4.png", title: "메인 이미지" },
+        { type: "et", src: "/assets/images/4_ma_12.png", title: "기타 이미지" },
+        // 기타 이미지가 여러 개 있더라도, 하나만 사용
+      ],
+    };
+
     let currentIndex = 0;
+    let slidesData = [];
 
-    // 초기 슬라이드 위치 설정
-    slides.forEach((slide, index) => {
-      slide.style.transform = `translateX(${index * 100}%)`;
-    });
+    // API 호출 및 슬라이더 초기화 함수
+    function fetchImagesAndInitSlider() {
+      // 실제 API 호출은 아래와 같이 구현 (현재는 mock 데이터 사용)
+      /*
+                fetch('/api/product-images')
+                    .then(response => response.json())
+                    .then(data => {
+                        processImageData(data);
+                    })
+                    .catch(error => {
+                        console.error('이미지 로딩 중 오류:', error);
+                    });
+                */
 
+      // 임시로 mock 데이터 사용
+      processImageData(mockApiResponse.data);
+    }
+
+    // 이미지 데이터 처리 및 슬라이더 초기화
+    function processImageData(data) {
+      // 메인 이미지 필터링
+      const maImages = data.filter((img) => img.type === "ma");
+
+      // 기타 이미지 필터링 (최대 1개만 사용)
+      const etImages = data.filter((img) => img.type === "et").slice(0, 1);
+
+      // 메인 이미지와 기타 이미지 합치기
+      slidesData = [...maImages, ...etImages];
+
+      // 기존 슬라이드 제거
+      slider.innerHTML = "";
+
+      // 새 슬라이드 추가
+      slidesData.forEach((slide, index) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = slide.src;
+        imgElement.classList.add("slide");
+        imgElement.alt = slide.title || `슬라이드 ${index + 1}`;
+        imgElement.style.transform = `translateX(${index * 100}%)`;
+        slider.appendChild(imgElement);
+      });
+
+      // 슬라이드가 2개 이상이면 화살표와 슬라이드 번호 표시
+      if (slidesData.length > 1) {
+        prevBtn.style.display = "flex";
+        nextBtn.style.display = "flex";
+        slideNumber.style.display = "block";
+      } else {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        slideNumber.style.display = "none";
+      }
+
+      // 초기 상태 설정
+      currentIndex = 0;
+      updateSlides();
+    }
+
+    // 슬라이드 업데이트 함수
     function updateSlides() {
+      const slides = document.querySelectorAll(".slide");
+
       slides.forEach((slide, index) => {
         slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
       });
 
       // 슬라이드 타이틀 업데이트
-      slideTitle.textContent = `${currentIndex + 1}번째 슬라이드`;
+      slideTitle.textContent =
+        slidesData[currentIndex].title || `${currentIndex + 1}번째 슬라이드`;
 
       // 슬라이드 번호 업데이트
       slideNumber.textContent = `${currentIndex + 1}/${slides.length}`;
     }
 
+    // 이전 버튼 클릭 이벤트
     prevBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateSlides();
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlides();
+      } else {
+        // 첫 번째 슬라이드에서 이전 버튼 클릭 시 마지막 슬라이드로
+        currentIndex = slidesData.length - 1;
+        updateSlides();
+      }
     });
 
+    // 다음 버튼 클릭 이벤트
     nextBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlides();
+      if (currentIndex < slidesData.length - 1) {
+        currentIndex++;
+        updateSlides();
+      } else {
+        // 마지막 슬라이드에서 다음 버튼 클릭 시 첫 번째 슬라이드로
+        currentIndex = 0;
+        updateSlides();
+      }
     });
 
-    // 초기 텍스트 설정
-    updateSlides();
+    // 터치 스와이프 이벤트 처리
+    let startX = 0;
+    sliderContainer.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    sliderContainer.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diffX = startX - endX;
+
+      if (Math.abs(diffX) > 50 && slidesData.length > 1) {
+        // 좌측으로 스와이프 (다음 슬라이드)
+        if (diffX > 0) {
+          if (currentIndex < slidesData.length - 1) {
+            currentIndex++;
+          } else {
+            currentIndex = 0;
+          }
+        }
+        // 우측으로 스와이프 (이전 슬라이드)
+        else {
+          if (currentIndex > 0) {
+            currentIndex--;
+          } else {
+            currentIndex = slidesData.length - 1;
+          }
+        }
+        updateSlides();
+      }
+    });
+
+    // 초기화 실행
+    fetchImagesAndInitSlider();
   });
 </script>
