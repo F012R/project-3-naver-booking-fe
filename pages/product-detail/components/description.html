@@ -1,1 +1,64 @@
-description test
+<style>
+    .description-container {
+        background-color: white;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .description-text {
+        background-color: white;
+        padding: 8px 10px;
+        line-height: 1.3em;
+    }
+
+    .description-container button{
+        width: 100%;
+        background-color: #f5f6f8;
+        border: 1px solid lightgrey;
+        border-width: 1px 0;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .fold-btn::after{
+        font-family: "Naver booking Icons", sans-serif;
+        content: "\EA08";   /* 아이콘 V */ 
+        font-size: 1.5em;
+        vertical-align: middle;
+        color: lightgray;
+    }
+
+    .unfold-btn::after{
+        font-family: "Naver booking Icons", sans-serif;
+        content: "\EA1C";   /* 아이콘 ^ */
+        font-size: 1.5em;
+        vertical-align: middle;
+        color: lightgray;
+    }
+
+
+</style>
+
+<section class="description-container">
+
+    <div class="preview-container">
+        <div class="description-preview description-text">
+            
+        </div>
+        <button class="fold-btn">
+            펼치기 
+        </button>
+    </div>
+        
+    <div class="full-container hidden">
+        <div class="description-full description-text">
+           
+        </div>
+        <button class="unfold-btn">
+            접기
+        </button>
+    </div>
+</section>
+
