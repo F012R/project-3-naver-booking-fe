@@ -1,1 +1,212 @@
-detail test
+<style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css');
+
+
+    .section-info-tab {
+        background-color: #fff;
+    }
+
+    nav .info-tab-lst {
+        border-top: 1px solid #e2e5e8;
+        border-bottom: 1px solid #e2e5e8;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        list-style: none;
+    }
+
+    nav .info-tab-lst .item > .anchor {
+        display: inline-block;
+        padding: 10px 6px;
+        white-space: nowrap;
+        text-decoration: none;
+        color: #333;
+        cursor: pointer;
+    }
+
+    nav .info-tab-lst .item > .anchor.active {
+        border-bottom: 2px solid #0aba16;
+        color: #0aba16;
+        font-weight: bold;
+    }
+
+    .detail-area-wrap,
+    .detail-location {
+        display: none;
+        padding: 15px;
+    }
+
+    .detail-area-wrap.active,
+    .detail-location.active {
+        display: block;
+    }
+
+    .detail-area .detail-info-group {
+        list-style: none;
+        padding: 0;
+    }
+
+    .detail-area .detail-info-group .detail-info-lst {
+        margin-bottom: 20px;
+    }
+
+    .detail-area .detail-info-group .detail-info-lst .in-tit {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .detail-area .detail-info-group .detail-info-lst .in-dsc {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    address .store-addr {
+        font-size: 14px;
+        color: #666;
+    }
+
+    address .store-addr-bold {
+        font-size: 14px;
+        color: #333;
+        
+    }
+
+    .lst-store-info {
+        list-style: none;
+        padding: 0;
+    }
+
+    .store-info i {
+        font-size: 16px;
+        color: #666;
+        margin-right: 10px;
+        
+    }
+
+    .lst-store-info .item {
+        display: flex;
+        padding: 5px 0;
+    }
+
+    .bottom-common-path {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 10px;
+        border-top: 1px solid #ececec;
+        background-color: #f5f5f5;
+    }
+
+    .bottom-common-path a {
+        display: flex;
+        align-items: center; 
+        text-decoration: none;
+        color: #8c8c8c;
+        font-size: 15px;
+        margin: 0 10px; 
+    }
+
+    .bottom-common-path a i {
+        margin-right: 10px;
+    }
+
+    .img-thumb {
+        max-width: 100%;
+        max-height: 40%;
+    }
+
+    .in-img-group .img-thumb {
+        max-width: 100%; 
+        max-height: 40%;
+    }
+    .store-name {
+        margin-top: 30px;  /* 위쪽 간격 */
+        margin-bottom: 20px;  /* 아래쪽 간격 */
+    }
+
+    .store-map {
+        width: 100%; 
+        height: 150px;
+        
+    }
+    
+    i.fa-location-dot {
+        display: inline-block !important;
+        visibility: visible !important;
+        color: gray !important; /* 일단 확실하게 보이게 */
+    }
+
+    .fa-map-marker-alt {
+        font-size: 16px;  /* 아이콘 크기 */
+        color: black;     /* 아이콘 색상 */
+    }
+
+
+</style>
+
+    
+    <section class="section-info-tab">
+        <nav>
+            <ul class="info-tab-lst">
+                <li class="item active _detail">
+                    <a href="#" class="anchor active"> <span>상세정보</span> </a>
+                </li>
+                <li class="item _path">
+                    <a href="#" class="anchor"> <span>오시는길</span> </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <article class="detail-area-wrap active">
+            <section class="detail-area">
+                <ul class="detail-info-group">
+                    <li class="detail-info-lst">
+                        <h3 class="in-tit">[소개]</h3>
+                        <p class="in-dsc">${content}</p>
+                    </li>
+                    <li class="detail-info-lst"> 
+                        <h3 class="in-tit">[공지사항]</h3>
+                        <figure class="in-img-group">
+                            <img alt="공지사항 이미지" class="img-thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000">
+                        </figure>
+                    </li>
+                </ul>
+            </section>
+        </article>
+        
+        <section class="detail-location">
+            <article class="box-store-info no-topline">
+                <a href="#" class="store-location" title="지도웹으로 연결">
+                    <img class="store-map img-thumb" alt="map" src="${mapImgUrl}">
+                    <span class="img-border"></span>
+                    <span class="btn-map"><i class="spr-book2 ico-mapview"></i></span>
+                </a>
+                <address class="store-info">
+                    <span class="store-name">${description}</span>
+                    <p class="store-addr store-addr-bold">
+                        <i class="fa-solid fa-location-dot"></i> <span>${place_street}</span>
+                    </p>
+                    <p class="store-addr">
+                        <span class="addr-old">지번</span>
+                        <span class="addr-old-detail">${place_lot}</span>
+                    </p>
+                </address>
+                <ul class="lst-store-info">
+                    <li class="item"> 
+                        <span class="item-lt"> 
+                            <i class="fa-solid fa-phone"></i> <span>${tel}</span>
+
+                        </span>
+                    </li>
+                </ul>
+                <footer class="bottom-common-path column2">
+                    <a href="#" class="btn-path"> 
+                        <i class="fa-solid fa-map"></i> <span>길찾기</span> </a>
+                    <a href="#" class="btn-navigation before"> 
+                        <i class="fa-solid fa-location-arrow"></i> <span>내비게이션</span> </a>
+                </footer>
+            </article>
+        </section>
+    </section>
+
+    
