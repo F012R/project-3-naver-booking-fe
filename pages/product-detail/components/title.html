@@ -125,8 +125,7 @@
 </style>
 
 <div class="slider-container">
-  <div class="slider">
-  </div>
+  <div class="slider"></div>
   <section class="gnb">
     <div class="left">
       <img src="/assets/images/spr_bi_sub.png" alt="네이버 로고" class="logo" />
@@ -179,7 +178,9 @@
       const mainImageList = data.filter((image) => image.type === "ma");
 
       // 기타 이미지 필터링 (최대 1개만 사용)
-      const extraImageList = data.filter((image) => image.type === "et").slice(0, 1);
+      const extraImageList = data
+        .filter((image) => image.type === "et")
+        .slice(0, 1);
 
       // 메인 이미지와 기타 이미지 합치기
       slideDataList = [...mainImageList, ...extraImageList];
@@ -241,6 +242,19 @@
       }
     });
 
+    // 로그인 상태에 따른 이메일 표시
+    function setupLoginStatusElement() {
+      const userEmail = localStorage.getItem("userEmail");
+      const emailElement = document.getElementById("user-email");
+
+      if (emailElement) {
+        emailElement.textContent = userEmail ? userEmail : "예약확인";
+        emailElement.addEventListener("click", function () {
+          window.location.href = userEmail ? "my-booking.html" : "login.html";
+        });
+      }
+    }
+
     // 다음 버튼 클릭 이벤트
     nextBtn.addEventListener("click", () => {
       if (currentIndex < slideDataList.length - 1) {
@@ -286,5 +300,8 @@
 
     // 초기화 실행
     fetchImagesAndInitializeSlider();
+
+    // 로그인 상태 설정 함수 호출
+    setupLoginStatusElement();
   });
 </script>
