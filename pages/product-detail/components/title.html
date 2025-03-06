@@ -1,178 +1,186 @@
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 414px;
-            margin: 0 auto;
-        }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    width: 414px;
+    margin: 0 auto;
+  }
 
-        .gnb {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: transparent;
-            padding: 10px 20px;
-            color: white;
-            font-size: 16px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            transform: translateX(-2.8%);
-            width: 400px;
-        }
+  .gnb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    transform: translateX(-2.8%);
+    width: 400px;
+  }
 
-        .left {
-            display: flex;
-            align-items: center;
-        }
+  .left {
+    display: flex;
+    align-items: center;
+  }
 
-        .logo {
-            width: 60px;
-            height: 24px;
-            margin-right: 8px;
-        }
+  .logo {
+    width: 60px;
+    height: 24px;
+    margin-right: 8px;
+  }
 
-        .right {
-            font-size: 16px;
-            display: flex;
-        }
+  .right {
+    font-size: 16px;
+    display: flex;
+  }
 
-        .slider-container {
-            position: relative;
-            width: 414px;
-            height: 414px;
-            margin: auto;
-            overflow: hidden;
-        }
+  .slider-container {
+    position: relative;
+    width: 414px;
+    height: 414px;
+    margin: auto;
+    overflow: hidden;
+  }
 
-        .slider {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 
-        .slide {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            filter: brightness(0.7);
-            transition: transform 0.5s ease-in-out;
-        }
+  .slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    filter: brightness(0.7);
+    transition: transform 0.5s ease-in-out;
+  }
 
-        .slide-title {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            z-index: 3;
-            width: 100%;
-            padding: 0 20px;
-        }
+  .slide-title {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 3;
+    width: 100%;
+    padding: 0 20px;
+  }
 
-        .slide-number {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            z-index: 3;
-        }
+  .slide-number {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0px 17px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 3;
+  }
 
-        .prev-btn, .next-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            border: none;
-            background: none;
-            padding: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 4;
-            width: 40px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+  .prev-btn,
+  .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 4;
+    width: 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-        .prev-btn { 
-            left: 0; 
-        }
+  .prev-btn {
+    left: 10px;
+  }
 
-        .next-btn { 
-            right: 0; 
-        }
-    </style>
-    <div class="slider-container">
-        <div class="slider">
-            <img src="/assets/images/2_ma_4.png" class="slide" alt="첫 번째 이미지" />
-            <img src="/assets/images/4_ma_12.png" class="slide" alt="두 번째 이미지" />
-        </div>
-        <section id="header-component" class="gnb">
-            <div class="left">
-                <img src="/assets/images/spr_bi_sub.png" alt="네이버 로고" class="logo" />
-            </div>
-            <div class="right">
-                <span id="user-email">예약확인</span>
-            </div>
-        </section>
-        <div class="slide-number">1/2</div>
-        <div class="slide-title">1번째 슬라이드</div>
-        <button class="prev-btn">&lt;</button>
-        <button class="next-btn">&gt;</button>
+  .next-btn {
+    right: 10px;
+  }
+
+  .arrow-img {
+    width: 20px;
+    height: auto;
+  }
+</style>
+
+<div class="slider-container">
+  <div class="slider">
+    <img src="/assets/images/2_ma_4.png" class="slide" alt="첫 번째 이미지" />
+    <img src="/assets/images/4_ma_12.png" class="slide" alt="두 번째 이미지" />
+  </div>
+  <section id="header-component" class="gnb">
+    <div class="left">
+      <img src="/assets/images/spr_bi_sub.png" alt="네이버 로고" class="logo" />
     </div>
+    <div class="right">
+      <span id="user-email">예약확인</span>
+    </div>
+  </section>
+  <div class="slide-number">1/2</div>
+  <div class="slide-title">1번째 슬라이드</div>
+  <button class="prev-btn">
+    <img src="/assets/images/arrow_l.png" alt="이전" class="arrow-img" />
+  </button>
+  <button class="next-btn">
+    <img src="/assets/images/arrow_r.png" alt="다음" class="arrow-img" />
+  </button>
+</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const slider = document.querySelector(".slider");
-            const slides = document.querySelectorAll(".slide");
-            const prevBtn = document.querySelector(".prev-btn");
-            const nextBtn = document.querySelector(".next-btn");
-            const slideTitle = document.querySelector(".slide-title");
-            const slideNumber = document.querySelector(".slide-number");
-            let currentIndex = 0;
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".slider");
+    const slides = document.querySelectorAll(".slide");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const slideTitle = document.querySelector(".slide-title");
+    const slideNumber = document.querySelector(".slide-number");
+    let currentIndex = 0;
 
-            // 초기 슬라이드 위치 설정
-            slides.forEach((slide, index) => {
-                slide.style.transform = `translateX(${index * 100}%)`;
-            });
+    // 초기 슬라이드 위치 설정
+    slides.forEach((slide, index) => {
+      slide.style.transform = `translateX(${index * 100}%)`;
+    });
 
-            function updateSlides() {
-                slides.forEach((slide, index) => {
-                    slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
-                });
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
+      });
 
-                // 슬라이드 타이틀 업데이트
-                slideTitle.textContent = `${currentIndex + 1}번째 슬라이드`;
-                
-                // 슬라이드 번호 업데이트
-                slideNumber.textContent = `${currentIndex + 1}/${slides.length}`;
-            }
+      // 슬라이드 타이틀 업데이트
+      slideTitle.textContent = `${currentIndex + 1}번째 슬라이드`;
 
-            prevBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                updateSlides();
-            });
+      // 슬라이드 번호 업데이트
+      slideNumber.textContent = `${currentIndex + 1}/${slides.length}`;
+    }
 
-            nextBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                updateSlides();
-            });
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateSlides();
+    });
 
-            // 초기 텍스트 설정
-            updateSlides();
-        });
-    </script>
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlides();
+    });
 
+    // 초기 텍스트 설정
+    updateSlides();
+  });
+</script>
