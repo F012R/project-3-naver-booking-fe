@@ -20,7 +20,7 @@
     width: 100%;
     z-index: 10;
     transform: translateX(-2.8%);
-    width: 397px;
+    width: 398px;
   }
 
   .left {
@@ -127,7 +127,7 @@
 <div class="slider-container">
   <div class="slider">
   </div>
-  <section id="header-component" class="gnb">
+  <section class="gnb">
     <div class="left">
       <img src="/assets/images/spr_bi_sub.png" alt="네이버 로고" class="logo" />
     </div>
@@ -149,7 +149,6 @@
   document.addEventListener("DOMContentLoaded", function () {
     const sliderContainer = document.querySelector(".slider-container");
     const slider = document.querySelector(".slider");
-    const slides = document.querySelectorAll(".slide");
     const prevBtn = document.querySelector(".prev-btn");
     const nextBtn = document.querySelector(".next-btn");
     const slideTitle = document.querySelector(".slide-title");
@@ -166,10 +165,10 @@
     };
 
     let currentIndex = 0;
-    let slidesData = [];
+    let slideDataList = [];
 
     // API 호출 및 슬라이더 초기화 함수
-    function fetchImagesAndInitSlider() {
+    function fetchImagesAndInitializeSlider() {
       // 이곳에 실제 API 호출 (현재는 mock 데이터 사용)
       processImageData(mockApiResponse.data);
     }
@@ -177,29 +176,29 @@
     // 이미지 데이터 처리 및 슬라이더 초기화
     function processImageData(data) {
       // 메인 이미지 필터링
-      const maImages = data.filter((img) => img.type === "ma");
+      const mainImageList = data.filter((image) => image.type === "ma");
 
       // 기타 이미지 필터링 (최대 1개만 사용)
-      const etImages = data.filter((img) => img.type === "et").slice(0, 1);
+      const extraImageList = data.filter((image) => image.type === "et").slice(0, 1);
 
       // 메인 이미지와 기타 이미지 합치기
-      slidesData = [...maImages, ...etImages];
+      slideDataList = [...mainImageList, ...extraImageList];
 
       // 기존 슬라이드 제거
       slider.innerHTML = "";
 
       // 새 슬라이드 추가
-      slidesData.forEach((slide, index) => {
-        const imgElement = document.createElement("img");
-        imgElement.src = slide.src;
-        imgElement.classList.add("slide");
-        imgElement.alt = slide.title || `슬라이드 ${index + 1}`;
-        imgElement.style.transform = `translateX(${index * 100}%)`;
-        slider.appendChild(imgElement);
+      slideDataList.forEach((slide, index) => {
+        const imageElement = document.createElement("img");
+        imageElement.src = slide.src;
+        imageElement.classList.add("slide");
+        imageElement.alt = slide.title || `슬라이드 ${index + 1}`;
+        imageElement.style.transform = `translateX(${index * 100}%)`;
+        slider.appendChild(imageElement);
       });
 
       // 슬라이드가 2개 이상이면 화살표와 슬라이드 번호 표시
-      if (slidesData.length > 1) {
+      if (slideDataList.length > 1) {
         prevBtn.style.display = "flex";
         nextBtn.style.display = "flex";
         slideNumber.style.display = "block";
@@ -211,63 +210,63 @@
 
       // 초기 상태 설정
       currentIndex = 0;
-      updateSlides();
+      updateSlide();
     }
 
     // 슬라이드 업데이트 함수
-    function updateSlides() {
-      const slides = document.querySelectorAll(".slide");
+    function updateSlide() {
+      const slideElements = document.querySelectorAll(".slide");
 
-      slides.forEach((slide, index) => {
+      slideElements.forEach((slide, index) => {
         slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
       });
 
       // 슬라이드 타이틀 업데이트
       slideTitle.textContent =
-        slidesData[currentIndex].title || `${currentIndex + 1}번째 슬라이드`;
+        slideDataList[currentIndex].title || `${currentIndex + 1}번째 슬라이드`;
 
       // 슬라이드 번호 업데이트
-      slideNumber.textContent = `${currentIndex + 1}/${slides.length}`;
+      slideNumber.textContent = `${currentIndex + 1}/${slideElements.length}`;
     }
 
     // 이전 버튼 클릭 이벤트
     prevBtn.addEventListener("click", () => {
       if (currentIndex > 0) {
         currentIndex--;
-        updateSlides();
+        updateSlide();
       } else {
         // 첫 번째 슬라이드에서 이전 버튼 클릭 시 마지막 슬라이드로
-        currentIndex = slidesData.length - 1;
-        updateSlides();
+        currentIndex = slideDataList.length - 1;
+        updateSlide();
       }
     });
 
     // 다음 버튼 클릭 이벤트
     nextBtn.addEventListener("click", () => {
-      if (currentIndex < slidesData.length - 1) {
+      if (currentIndex < slideDataList.length - 1) {
         currentIndex++;
-        updateSlides();
+        updateSlide();
       } else {
         // 마지막 슬라이드에서 다음 버튼 클릭 시 첫 번째 슬라이드로
         currentIndex = 0;
-        updateSlides();
+        updateSlide();
       }
     });
 
     // 터치 스와이프 이벤트 처리
     let startX = 0;
-    sliderContainer.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
+    sliderContainer.addEventListener("touchstart", (event) => {
+      startX = event.touches[0].clientX;
     });
 
-    sliderContainer.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX;
+    sliderContainer.addEventListener("touchend", (event) => {
+      const endX = event.changedTouches[0].clientX;
       const diffX = startX - endX;
 
-      if (Math.abs(diffX) > 50 && slidesData.length > 1) {
+      if (Math.abs(diffX) > 50 && slideDataList.length > 1) {
         // 좌측으로 스와이프 (다음 슬라이드)
         if (diffX > 0) {
-          if (currentIndex < slidesData.length - 1) {
+          if (currentIndex < slideDataList.length - 1) {
             currentIndex++;
           } else {
             currentIndex = 0;
@@ -278,14 +277,14 @@
           if (currentIndex > 0) {
             currentIndex--;
           } else {
-            currentIndex = slidesData.length - 1;
+            currentIndex = slideDataList.length - 1;
           }
         }
-        updateSlides();
+        updateSlide();
       }
     });
 
     // 초기화 실행
-    fetchImagesAndInitSlider();
+    fetchImagesAndInitializeSlider();
   });
 </script>
