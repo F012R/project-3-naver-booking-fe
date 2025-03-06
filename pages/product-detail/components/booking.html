@@ -1,1 +1,39 @@
-booking test
+<style>
+    .booking-wrapper {
+        background-color: #4ea84b;      
+        text-align: center;
+        margin-top: 5px;
+        /* vertical-align: middle;
+        align-items: center; 
+        justify-content: center;   */
+    }
+
+    .booking-text {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+        padding: 12px 0px;
+        gap: 5px;  /* icon과 텍스트 사이 간격 */
+        display: flex;
+        vertical-align: middle;
+        justify-content: center;
+        align-items: center;
+        height: 1.2em;
+        margin: 0;
+    }
+
+    .booking-text::before{
+        /* 예매 아이콘 */
+        content: "\EA67";
+        font-family: 'Naver Icons';
+        font-size: 1.1em;
+    }
+</style>
+
+<section class="booking-wrapper">
+    <a href="../../public/index.html">   
+        <div class="booking-text">
+            예매하기 
+        </div>
+    </a>            
+</section>
