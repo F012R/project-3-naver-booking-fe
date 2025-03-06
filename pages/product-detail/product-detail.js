@@ -20,9 +20,9 @@ function loadComponent(id, url, callback) {
 
 function loadEventInfo() {
   // 이벤트 정보란
-  const currentProductId = 3;  
+  const currentProductId = 3;  // 임의로 현재 productId 줌. 
 
-  (async()  => {
+  (async()  => {  
     var productPriceData = await getJsonByUrl("../../assets/jsons/product_price.json");
     productPriceData = filterJsonByKey(productPriceData, "productId", currentProductId);
     var eventInfoText = makeEventInfo(productPriceData);
@@ -71,7 +71,7 @@ function makeEventInfo(data) {
         return;
     }
     status = true;
-    result += (typeNameMap[element.priceTypeName] + rate + "%, ");
+    result += (`${typeNameMap[element.priceTypeName]} ${rate}%, `);
   });
 
   if (status) {   // 가격 정보 중 하나라도 할인하는 것이 있으면 
