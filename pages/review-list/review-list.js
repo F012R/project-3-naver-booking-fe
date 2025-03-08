@@ -1,14 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-  loadComponent("title", "components/title.html");
-  loadComponent("description", "components/description.html");
-  loadComponent("event", "components/event.html");
-  loadComponent("booking", "components/booking.html");
+  loadComponent("header", "/pages/review-list/components/header.html");
   loadComponent(
-    "recent-review",
-    "components/recent-review.html",
-    loadRecentReviewDatas
+    "total-review",
+    "/pages/review-list/components/total-review.html",
+    loadTotalReviewDatas
   );
-  loadComponent("detail", "components/detail.html");
   loadComponent("footer", "/pages/main/footer.html");
 });
 
@@ -22,7 +18,6 @@ function loadComponent(id, url, callback) {
     .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
 }
 
-// ▶ review
 let reviewData = [];
 
 // 더미 데이터 가져오기
@@ -34,34 +29,33 @@ function fetchReviewDatas() {
       return data;
     })
     .catch((error) => {
-      console.error("리뷰 데이터 로딩 중 오류 발생:", error);
-      return []; // 에러 발생 시 빈 배열 반환
+      console.error("더미 데이터 로딩 중 오류 발생:", error);
+      return [];
     });
 }
 
 // review-area - 데이터에 따라 한줄평 영역 HTML 생성하기
 function createReviewItems() {
-  const recentReviewsContainer = document.querySelector(".recent-reviews");
+  const totalReviewsContainer = document.querySelector(".total-reviews");
   // 한줄평 서식 템플릿으로 저장
   const reviewItemTemplate = document.querySelector(
-    ".recent-reviews__item"
+    ".total-reviews__item"
   ).outerHTML;
-  recentReviewsContainer.innerHTML = "";
+  totalReviewsContainer.innerHTML = "";
 
   // 한줄평 데이터 없을 경우
   if (!reviewData || reviewData.length === 0) {
     const noReviewElement = document.createElement("div");
-    noReviewElement.className = "recent-reviews__no-items";
+    noReviewElement.className = "total-reviews__no-items";
     noReviewElement.textContent = "등록된 한줄평이 없습니다.";
-    recentReviewsContainer.appendChild(noReviewElement);
+    totalReviewsContainer.appendChild(noReviewElement);
     return;
   }
 
-  // 한줄평 영역 최대 3개까지 생성
-  const itemCount = Math.min(3, reviewData.length);
-  for (let i = 0; i < itemCount; i++) {
-    recentReviewsContainer.innerHTML += reviewItemTemplate;
-  }
+  // 한줄평 데이터 개수만큼 템플릿 복사
+  reviewData.forEach(() => {
+    totalReviewsContainer.innerHTML += reviewItemTemplate;
+  });
 }
 
 // review-summary - 평균 평점 계산하기
@@ -87,32 +81,33 @@ function setReviewCount() {
   return reviewCount;
 }
 
-// recent-reviews__item - 상품명 삽입하기
+// total-reviews__item - 상품명 삽입하기
 function setProductTitles() {
   const productTitleElements = document.querySelectorAll(
-    ".recent-reviews__product-title"
+    ".total-reviews__product-title"
   );
-  const maxReviews = Math.min(3, reviewData.length);
+
+  const maxReviews = Math.min(productTitleElements.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     productTitleElements[i].textContent = reviewData[i].product_name;
   }
 }
 
-// recent-reviews__item - 내용 삽입하기
+// total-reviews__item - 내용 삽입하기
 function setReviewTexts() {
-  const reviewTextElements = document.querySelectorAll(".recent-reviews__text");
-  const maxReviews = Math.min(3, reviewData.length);
+  const reviewTextElements = document.querySelectorAll(".total-reviews__text");
+  const maxReviews = Math.min(reviewTextElements.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     reviewTextElements[i].textContent = reviewData[i].comment;
   }
 }
 
-// recent-reviews__item - 이미지 삽입하기
+// total-reviews__item - 이미지 삽입하기
 function setReviewImages() {
-  const imageContainers = document.querySelectorAll(".recent-reviews__image");
-  const maxReviews = Math.min(3, reviewData.length);
+  const imageContainers = document.querySelectorAll(".total-reviews__image");
+  const maxReviews = Math.min(imageContainers.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     const review = reviewData[i];
@@ -121,7 +116,7 @@ function setReviewImages() {
     if (review.file_info && review.file_info.save_file_name) {
       const img = document.createElement("img");
       img.src = review.file_info.save_file_name + ".png";
-      img.alt = "리뷰 이미지";
+      img.alt = "한줄평 이미지";
       imageContainers[i].appendChild(img);
       imageContainers[i].style.display = "flex";
     } else {
@@ -130,20 +125,20 @@ function setReviewImages() {
   }
 }
 
-// recent-reviews__item - 평점 삽입하기
+// total-reviews__item - 평점 삽입하기
 function setReviewScores() {
-  const scoreElements = document.querySelectorAll(".recent-reviews__score");
-  const maxReviews = Math.min(3, reviewData.length);
+  const scoreElements = document.querySelectorAll(".total-reviews__score");
+  const maxReviews = Math.min(scoreElements.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     scoreElements[i].textContent = `${reviewData[i].score.toFixed(1)}`;
   }
 }
 
-// recent-reviews__item - ID 삽입하기
+// total-reviews__item - ID 삽입하기
 function setReviewerIds() {
-  const idElements = document.querySelectorAll(".recent-reviews__id");
-  const maxReviews = Math.min(3, reviewData.length);
+  const idElements = document.querySelectorAll(".total-reviews__id");
+  const maxReviews = Math.min(idElements.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     const originalId = reviewData[i].id;
@@ -155,12 +150,12 @@ function setReviewerIds() {
   }
 }
 
-// recent-reviews__item - 방문일자 삽입하기
+// total-reviews__item - 방문일자 삽입하기
 function setReservationDates() {
   const dateElements = document.querySelectorAll(
-    ".recent-reviews__reservation-date"
+    ".total-reviews__reservation-date"
   );
-  const maxReviews = Math.min(3, reviewData.length);
+  const maxReviews = Math.min(dateElements.length, reviewData.length);
 
   for (let i = 0; i < maxReviews; i++) {
     const rawDate = reviewData[i].reservation_date;
@@ -169,23 +164,16 @@ function setReservationDates() {
   }
 }
 
-function loadRecentReviewDatas() {
+function loadTotalReviewDatas() {
   fetchReviewDatas().then(() => {
-    reviewData.sort(
-      // 방문일자 기준으로 한줄평 정렬
-      (a, b) => new Date(b.reservation_date) - new Date(a.reservation_date)
-    );
-
-    const recentReviews = reviewData.slice(0, 3); // 정렬된 한줄평 중 최근에 작성된 한줄평 3개 선택
-
     setAverageRating();
     setReviewCount();
-    createReviewItems(recentReviews);
-    setProductTitles(recentReviews);
-    setReviewTexts(recentReviews);
-    setReviewImages(recentReviews);
-    setReviewScores(recentReviews);
-    setReviewerIds(recentReviews);
-    setReservationDates(recentReviews);
+    createReviewItems();
+    setProductTitles();
+    setReviewTexts();
+    setReviewImages();
+    setReviewScores();
+    setReviewerIds();
+    setReservationDates();
   });
 }

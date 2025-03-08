@@ -1,0 +1,73 @@
+[
+  {
+    "reservation_user_comment_id": 1,
+    "product_id": 1,
+    "reservation_info_id": 1,
+    "score": 5.0,
+    "comment": "대극장 뮤지컬에게 기대되는 모든 요소를 완벽하게 갖춘 최고의 역작",
+    "create_date": "2025-03-08 17:20:00",
+    "modify_date": "2025-03-08 17:20:00",
+    "id": "asdfqwer",
+    "reservation_date": "2025-03-07",
+    "product_name": "뮤지컬 프랑켄슈타인",
+    "file_info": {
+      "file_name": "comment_image_1",
+      "save_file_name": "/assets/images/4_th_11"
+    }
+  },
+  {
+    "reservation_user_comment_id": 2,
+    "product_id": 1,
+    "reservation_info_id": 2,
+    "score": 5.0,
+    "comment": "화려한 무대 연출과 긴장감 넘치는 스토리에 매료되는 작품",
+    "create_date": "2025-03-08 17:20:00",
+    "modify_date": "2025-03-08 17:20:00",
+    "id": "sovoz9",
+    "reservation_date": "2025-03-06",
+    "product_name": "뮤지컬 프랑켄슈타인",
+    "file_info": {
+      "file_name": "comment_image_2",
+      "save_file_name": null
+    }
+  },
+  {
+    "reservation_user_comment_id": 3,
+    "product_id": 1,
+    "reservation_info_id": 3,
+    "score": 5.0,
+    "comment": "동빅 은앙 조합으로 드셔보세요",
+    "create_date": "2025-03-08 17:20:00",
+    "modify_date": "2025-03-08 17:20:00",
+    "id": "dlmnmlb",
+    "reservation_date": "2025-03-05",
+    "product_name": "뮤지컬 프랑켄슈타인",
+    "file_info": null
+  },
+  {
+    "reservation_user_comment_id": 4,
+    "product_id": 1,
+    "reservation_info_id": 4,
+    "score": 3.0,
+    "comment": "가격대비 약간은 실망이었어요.",
+    "create_date": "2025-03-08 17:20:00",
+    "modify_date": "2025-03-08 17:20:00",
+    "id": "qwer23423",
+    "reservation_date": "2025-03-04",
+    "product_name": "뮤지컬 프랑켄슈타인",
+    "file_info": null
+  },
+  {
+    "reservation_user_comment_id": 5,
+    "product_id": 1,
+    "reservation_info_id": 5,
+    "score": 2.0,
+    "comment": "지루했어요..",
+    "create_date": "2025-03-08 17:20:00",
+    "modify_date": "2025-03-08 17:20:00",
+    "id": "zxcvasdfer",
+    "reservation_date": "2025-03-03",
+    "product_name": "뮤지컬 프랑켄슈타인",
+    "file_info": null
+  }
+]
