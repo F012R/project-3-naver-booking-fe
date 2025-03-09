@@ -1,7 +1,4 @@
 <style>
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css');
-
-
     .section-info-tab {
         background-color: #fff;
     }
@@ -69,7 +66,6 @@
     address .store-addr-bold {
         font-size: 14px;
         color: #333;
-        
     }
 
     .lst-store-info {
@@ -77,16 +73,9 @@
         padding: 0;
     }
 
-    .store-info i {
-        font-size: 16px;
-        color: #666;
-        margin-right: 10px;
-        
-    }
-
     .lst-store-info .item {
         display: flex;
-        padding: 5px 0;
+        
     }
 
     .bottom-common-path {
@@ -99,15 +88,11 @@
 
     .bottom-common-path a {
         display: flex;
-        align-items: center; 
+        align-items: center;
         text-decoration: none;
         color: #8c8c8c;
         font-size: 15px;
-        margin: 0 10px; 
-    }
-
-    .bottom-common-path a i {
-        margin-right: 10px;
+        margin: 0 10px;
     }
 
     .img-thumb {
@@ -115,100 +100,127 @@
         max-height: 40%;
     }
 
-    .in-img-group .img-thumb {
-        max-width: 100%; 
-        max-height: 40%;
-    }
     .store-name {
-        margin-top: 10px; 
+        margin-top: 10px;
         margin-bottom: 10px;
-        font-weight: bold;  
+        font-weight: bold;
     }
 
     .store-map {
-        width: 100%; 
+        width: 100%;
         height: 150px;
-        
+    }
+
+    .location-container {
+        margin-top: 5px;
     }
     
-    i.fa-location-dot {
-        display: contents ;
-        color: gray ; 
-        
+    .addr-old{
+        margin-left:15px;
+        color:#8c8c8c;
+    }
+
+    .addr-old-detail {
+        margin-left: 5px; 
+        color:#333;
+        margin-bottom:0px;
     }
     
-    .fa-map-marker-alt {
-        font-size: 16px;  
-        color: black;     
+     /* 주소 아이콘 */
+    .addr::before{
+        content: "\EA7B";  /* 아이콘 코드 */
+        font-family: 'Naver Icons'; /* 아이콘 폰트 */
+        font-size: 15px;
+        margin-right: 5px;
+        display: inline-block;
+        color: #8c8c8c; 
+
     }
-    .fa-solid.fa-phone {
+    /* 전화번호 아이콘 */
+    .tel::before {
+        content: "\EA26";  
+        font-family: 'Naver Icons'; 
+        font-size: 17px;
+        margin-right: 5px;
+        display: inline-block;
+        color: #8c8c8c;
+    
+    }
+    /* 길찾기 버튼 아이콘 */
+    .btn-path::before {
+        content: "\EA75";  
+        font-family: 'Naver Icons'; 
+        font-size: 19px;
+        margin-right: 5px;
+        display: inline-block;
         color: gray; 
     }
-    .location-container{
-        margin-top: 5px; 
+
+    /* 내비게이션 버튼 아이콘 */
+    .btn-navigation::before {
+        content: "\EA65";  
+        font-family: 'Naver Icons'; 
+        font-size: 19px;
+        margin-right: 5px;
+        display: inline-block;
+        color: gray; 
     }
 </style>
 
-    <section class="section-info-tab">
-        <nav>
-            <ul class="info-tab-lst">
-                <li class="item active _detail">
-                    <a href="#" class="anchor active"> <span>상세정보</span> </a>
+<section class="section-info-tab">
+    <nav>
+        <ul class="info-tab-lst">
+            <li class="item active _detail">
+                <a href="#" class="anchor active"> <span>상세정보</span> </a>
+            </li>
+            <li class="item _path">
+                <a href="#" class="anchor"> <span>오시는길</span> </a>
+            </li>
+        </ul>
+    </nav>
+
+    <article class="detail-area-wrap active">
+        <section class="detail-area">
+            <ul class="detail-info-group">
+                <li class="detail-info-lst">
+                    <h3 class="in-tit">[소개]</h3>
+                    <p class="in-dsc">${content}</p>
                 </li>
-                <li class="item _path">
-                    <a href="#" class="anchor"> <span>오시는길</span> </a>
+                <li class="detail-info-lst"> 
+                    <h3 class="in-tit">[공지사항]</h3>
+                    <figure class="in-img-group">
+                        <img alt="공지사항 이미지" class="img-thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000">
+                    </figure>
                 </li>
             </ul>
-        </nav>
-        
-        <article class="detail-area-wrap active">
-            <section class="detail-area">
-                <ul class="detail-info-group">
-                    <li class="detail-info-lst">
-                        <h3 class="in-tit">[소개]</h3>
-                        <p class="in-dsc">${content}</p>
-                    </li>
-                    <li class="detail-info-lst"> 
-                        <h3 class="in-tit">[공지사항]</h3>
-                        <figure class="in-img-group">
-                            <img alt="공지사항 이미지" class="img-thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000">
-                        </figure>
-                    </li>
-                </ul>
-            </section>
-        </article>
-        
-        <section class="detail-location">
-            <article class="box-store-info no-topline">
-                
-                <img class="store-map img-thumb" alt="map" src="${mapImgUrl}">
-                
-                <address class="store-info">
-                    <div class="store-name">${description}</div>
-                    <div class="location-container">
-                        <i class="fa-solid fa-location-dot"></i> <span>${place_street}</span>
-                    </div>
-                    <p class="store-addr">
-                        <span class="addr-old">지번</span>
-                        <span class="addr-old-detail">${place_lot}</span>
-                    </p>
-                </address>
-                <ul class="lst-store-info">
-                    <li class="item"> 
-                        <span class="item-lt"> 
-                            <i class="fa-solid fa-phone"></i> <span>${tel}</span>
-
-                        </span>
-                    </li>
-                </ul>
-                <footer class="bottom-common-path column2">
-                    <a href="#" class="btn-path"> 
-                        <i class="fa-solid fa-map"></i> <span>길찾기</span> </a>
-                    <a href="#" class="btn-navigation before"> 
-                        <i class="fa-solid fa-location-arrow"></i> <span>내비게이션</span> </a>
-                </footer>
-            </article>
         </section>
-    </section>
+    </article>
 
-    
+    <section class="detail-location">
+        <article class="box-store-info no-topline">
+            <img class="store-map img-thumb" alt="map" src="${mapImgUrl}">
+            
+            <address class="store-info">
+                <div class="store-name">${description}</div>
+                <div class="location-container">
+                    <span class="addr">주소:${place_street}</span>
+                </div>
+                <p class="store-addr">
+                    <span class="addr-old">지번</span>
+                    <span class="addr-old-detail">${place_lot}</span>
+                </p>
+            </address>
+            <ul class="lst-store-info">
+                <li class="item"> 
+                    <span class="item-lt"> 
+                        <span class="tel">전화번호:${tel}</span>
+                    </span>
+                </li>
+            </ul>
+            <footer class="bottom-common-path column2">
+                <a href="#" class="btn-path">길찾기</a>
+                <a href="#" class="btn-navigation">내비게이션</a>
+            </footer>
+        </article>
+    </section>
+</section>
