@@ -147,8 +147,7 @@ function setReviewerIds() {
 
   for (let i = 0; i < maxReviews; i++) {
     const originalId = reviewData[i].id;
-    const englishChars = originalId.replace(/[^a-zA-Z]/g, "");
-    const limitedId = englishChars.substring(0, 8); // 영문 ID 최대 8글자 추출하기
+    const limitedId = originalId.substring(0, 8); // ID 최대 8글자 추출하기
     const paddedId = limitedId.padEnd(8, "x"); // 8글자보다 짧은 경우 'x'로 채워넣기
     const maskedId = paddedId.slice(0, 4) + "*".repeat(4); // 앞 4글자를 제외한 나머지 글자 마스킹하기
     idElements[i].textContent = maskedId;
@@ -180,12 +179,12 @@ function loadRecentReviewDatas() {
 
     setAverageRating();
     setReviewCount();
-    createReviewItems(recentReviews);
-    setProductTitles(recentReviews);
-    setReviewTexts(recentReviews);
-    setReviewImages(recentReviews);
-    setReviewScores(recentReviews);
-    setReviewerIds(recentReviews);
-    setReservationDates(recentReviews);
+    createReviewItems();
+    setProductTitles();
+    setReviewTexts();
+    setReviewImages();
+    setReviewScores();
+    setReviewerIds();
+    setReservationDates();
   });
 }
