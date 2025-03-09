@@ -29,9 +29,9 @@ function setupProductDescription() {
       
       var descriptionHTML = currentProductData[0].content;
       descriptionHTML = descriptionHTML.replace(/\\n/g, '<br>');  
-      var preDescriptioinArray = descriptionHTML.split("<br>");      
+      var descriptioinPreviewArray = descriptionHTML.split("<br>");      
 
-      document.querySelector(".description-preview").innerHTML = preDescriptioinArray[0] + "<br>" + preDescriptioinArray[1];   // preview 영역은 2줄 들어감 (data.content 기준, \n로 구분)
+      document.querySelector(".description-preview").innerHTML = descriptioinPreviewArray[0] + "<br>" + descriptioinPreviewArray[1];   // preview 영역은 2줄 들어감 (data.content 기준, \n로 구분)
       document.querySelector(".description-full").innerHTML = descriptionHTML;   
   }) ();
 
