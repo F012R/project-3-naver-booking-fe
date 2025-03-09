@@ -26,6 +26,14 @@ function initializeTitleSlider() {
   const nextBtn = document.querySelector(".next-btn");
   const slideTitle = document.querySelector(".slide-title");
   const slideNumber = document.querySelector(".slide-number");
+  const logo = document.querySelector(".logo");
+
+  // 로고 클릭 시 메인 페이지로 이동
+  if (logo) {
+    logo.addEventListener("click", function () {
+      window.location.href = "../../public/index.html"; 
+    });
+  }
 
   // 임시 API 응답 데이터 (실제 API 연결 시 이 부분을 대체)
   const mockApiResponse = {
