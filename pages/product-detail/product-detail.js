@@ -277,6 +277,8 @@ function loadRecentReviewDatas() {
     setReviewScores();
     setReviewerIds();
     setReservationDates();
+  })
+}
 
 // ▶ title
 // title 영역 관련 처음 실행될 함수 
@@ -446,6 +448,7 @@ function initializeTitleSlider() {
 
   // 로그인 상태 설정 함수 호출
   setupLoginStatusElement();
+}
 
 function loadJsonData() {
   // detail.json, mapImg.json, detailmap.json 파일을 병렬로 로드
