@@ -1,0 +1,195 @@
+<style>
+  p {
+    margin: 0px;
+  }
+
+  span {
+    margin: 0px;
+  }
+
+  .review-area {
+    padding: 15px;
+  }
+
+  .review-summary {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1.5px solid #e5e5e5;
+  }
+
+  .review-summary__title {
+    font-weight: bold;
+  }
+
+  .review-summary__average {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+  }
+
+  .review-summary__stars {
+    width: 100px;
+    height: 15px;
+    margin-right: 8px;
+  }
+
+  .review-summary__rating {
+    position: relative;
+  }
+
+  .review-summary__rating::after {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: -9px;
+    left: -32px;
+    width: 156px;
+    height: 28px;
+    transform: scale(0.6);
+    background-image: url(/assets/images/spr_comment.png);
+    background-size: 180px 260px;
+    background-repeat: no-repeat;
+    background-position: 0px -151px;
+  }
+
+  .review-summary__numbers {
+    position: absolute;
+    left: 120px;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .review-summary__value {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .review-summary__total {
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .review-summary__count {
+    color: #03c75a;
+  }
+
+  .total-reviews {
+    margin-bottom: 15px;
+  }
+
+  .total-reviews__item {
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .total-reviews__info {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+  }
+
+  .total-reviews__content-wrapper {
+    flex-grow: 1;
+  }
+
+  .total-reviews__product-title {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  .total-reviews__media {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin: 5px 0 10px;
+  }
+
+  .total-reviews__text {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .total-reviews__image {
+    flex-shrink: 0;
+    display: inline-flex;
+  }
+
+  .total-reviews__image img {
+    width: auto;
+    height: auto;
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: cover;
+  }
+
+  .total-reviews__meta {
+    display: flex;
+    color: #666;
+    font-size: 13px;
+  }
+
+  .total-reviews__score {
+    font-weight: bold;
+    color: #000;
+  }
+
+  .total-reviews__divider {
+    margin: 0px 8px;
+    width: 1px;
+    height: 15px;
+    background-color: #e5e5e5;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .total-reviews__id {
+    color: #666;
+  }
+
+  .total-reviews__reservation-date {
+    color: #999;
+  }
+</style>
+
+<div class="review-area">
+  <div class="review-summary">
+    <p class="review-summary__title">예매자 한줄평</p>
+    <div class="review-summary__average">
+      <div class="review-summary__stars">
+        <div class="review-summary__rating"></div>
+      </div>
+      <span class="review-summary__numbers">
+        <span class="review-summary__value"> </span> / 5.0
+      </span>
+      <span class="review-summary__total">
+        <span class="review-summary__count"></span>건 등록
+      </span>
+    </div>
+  </div>
+
+  <div class="total-reviews">
+    <!-- 한줄평 반복구간 시작 -->
+    <div class="total-reviews__item">
+      <div class="total-reviews__info">
+        <div class="total-reviews__content-wrapper">
+          <p class="total-reviews__product-title"></p>
+          <div class="total-reviews__media">
+            <div class="total-reviews__text"></div>
+            <div class="total-reviews__image"></div>
+          </div>
+        </div>
+      </div>
+      <div class="total-reviews__meta">
+        <span class="total-reviews__score"></span>
+        <span class="total-reviews__divider"></span>
+        <span class="total-reviews__id"></span>
+        <span class="total-reviews__divider"></span>
+        <span class="total-reviews__reservation-date"></span>
+      </div>
+    </div>
+    <!-- 한줄평 반복구간 끝 -->
+  </div>
+</div>

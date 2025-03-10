@@ -46,6 +46,10 @@ footer {
   text-align: center;
 }
 
+section {
+  background-color: #fff;
+}
+
 main {
   display: block;
 }
