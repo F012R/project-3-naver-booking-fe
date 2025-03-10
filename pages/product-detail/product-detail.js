@@ -11,6 +11,16 @@ document.addEventListener("DOMContentLoaded", function () {
   loadComponent("footer", "../main/footer.html");
 });
 
+function loadComponent(id, url, callback) {
+  fetch(url)
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById(id).innerHTML = data;
+      if (callback) callback(); 
+    })
+    .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
+}
+
 function loadJsonData() {
   // detail.json, mapImg.json, detailmap.json 파일을 병렬로 로드
   Promise.all([
@@ -87,16 +97,6 @@ function loadJsonData() {
     .catch(error => {
       console.error('JSON 파일 로드 실패:', error);
     });
-}
-
-function loadComponent(id, url, callback) {
-  fetch(url)
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById(id).innerHTML = data;
-      if (callback) callback(); 
-    })
-    .catch((error) => console.error(`${url} 로딩 중 오류 발생:`, error));
 }
 
 function initDetailTabs() {
