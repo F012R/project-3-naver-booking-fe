@@ -1,0 +1,261 @@
+<style>
+  p {
+    margin: 0px;
+  }
+
+  span {
+    margin: 0px;
+  }
+
+  .review-area {
+    padding: 15px;
+  }
+
+  .review-summary {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1.5px solid #e5e5e5;
+  }
+
+  .review-summary__title {
+    font-weight: bold;
+  }
+
+  .review-summary__average {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+  }
+
+  .review-summary__stars {
+    width: 100px;
+    height: 15px;
+    margin-right: 8px;
+  }
+
+  .review-summary__rating {
+    position: relative;
+  }
+
+  .review-summary__rating::after {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: -9px;
+    left: -32px;
+    width: 156px;
+    height: 28px;
+    transform: scale(0.6);
+    background-image: url(/assets/images/spr_comment.png);
+    background-size: 180px 260px;
+    background-repeat: no-repeat;
+    background-position: 0px -151px;
+  }
+
+  .review-summary__numbers {
+    position: absolute;
+    left: 120px;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .review-summary__value {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .review-summary__total {
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .review-summary__count {
+    color: #03c75a;
+  }
+
+  .recent-reviews {
+    margin-bottom: 15px;
+  }
+
+  .recent-reviews__item {
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .recent-reviews__info {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+  }
+
+  .recent-reviews__content-wrapper {
+    flex-grow: 1;
+  }
+
+  .recent-reviews__product-title {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .recent-reviews__media {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin: 5px 0 10px;
+  }
+
+  .recent-reviews__text {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .recent-reviews__image {
+    flex-shrink: 0;
+    display: inline-flex;
+  }
+
+  .recent-reviews__image img {
+    width: auto;
+    height: auto;
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: cover;
+  }
+
+  .recent-reviews__meta {
+    display: flex;
+    color: #666;
+    font-size: 13px;
+  }
+
+  .recent-reviews__score {
+    font-weight: bold;
+    color: #000;
+  }
+
+  .recent-reviews__divider {
+    margin: 0px 8px;
+    width: 1px;
+    height: 15px;
+    background-color: #e5e5e5;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .recent-reviews__id {
+    color: #666;
+  }
+
+  .recent-reviews__reservation-date {
+    color: #999;
+  }
+
+  .notice {
+    position: relative;
+    font-size: 13px;
+    color: #666;
+    padding-left: 20px;
+  }
+
+  .notice::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: -11.5px;
+    left: -12px;
+    width: 40px;
+    height: 40px;
+    transform: scale(0.5);
+    background-image: url(/assets/images/spr_book2.png);
+    background-size: 660px 800px;
+    background-repeat: no-repeat;
+    background-position: -492px -352px;
+  }
+
+  .more-reviews-wrapper {
+    border-top: 1px solid #dfdfe1;
+    border-bottom: 1px solid #dfdfe1;
+    background-color: #fbfbfd;
+    text-align: center;
+  }
+
+  .more-reviews-wrapper__button {
+    width: 100%;
+    display: inline-block;
+    padding: 10px 0;
+    border-radius: 4px;
+    color: #3a3a3c;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .more-reviews-wrapper__button::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 107px;
+    transform: translateY(-50%) scale(0.4) scaleX(-1);
+    width: 37px;
+    height: 30px;
+    background-image: url(/assets/images/spr_book2.png);
+    background-size: 660px 800px;
+    background-repeat: no-repeat;
+    background-position: -148px -467px;
+  }
+</style>
+
+<div class="review-area">
+  <div class="review-summary">
+    <p class="review-summary__title">예매자 한줄평</p>
+    <div class="review-summary__average">
+      <div class="review-summary__stars">
+        <div class="review-summary__rating"></div>
+      </div>
+      <span class="review-summary__numbers">
+        <span class="review-summary__value"> </span> / 5.0
+      </span>
+      <span class="review-summary__total">
+        <span class="review-summary__count"></span>건 등록
+      </span>
+    </div>
+  </div>
+
+  <div class="recent-reviews">
+    <!-- 한줄평 반복구간 시작 -->
+    <div class="recent-reviews__item">
+      <div class="recent-reviews__info">
+        <div class="recent-reviews__content-wrapper">
+          <p class="recent-reviews__product-title"></p>
+          <div class="recent-reviews__media">
+            <div class="recent-reviews__text"></div>
+            <div class="recent-reviews__image"></div>
+          </div>
+        </div>
+      </div>
+      <div class="recent-reviews__meta">
+        <span class="recent-reviews__score"></span>
+        <span class="recent-reviews__divider"></span>
+        <span class="recent-reviews__id"></span>
+        <span class="recent-reviews__divider"></span>
+        <span class="recent-reviews__reservation-date"></span>
+      </div>
+    </div>
+    <!-- 한줄평 반복구간 끝 -->
+  </div>
+  <div class="notice">
+    <p>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</p>
+  </div>
+</div>
+
+<div class="more-reviews-wrapper">
+  <a
+    href="/pages/review-list/review-list.html"
+    class="more-reviews-wrapper__button"
+  >
+    예매자 한줄평 더보기
+  </a>
+</div>
