@@ -3,11 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "booking-summary",
     "components/booking-summary.html",
     initializeBookingTabs,
-    filterBookingHistory,
-    setupLoginStatusElement
+    filterBookingHistory
   );
   loadComponent("booking-history", "components/booking-history.html");
   loadComponent("footer", "/pages/main/footer.html");
+
+  setTimeout(setupLoginStatusElement, 1000);
 });
 
 function loadComponent(id, url, callback) {
@@ -111,8 +112,11 @@ function setupLoginStatusElement() {
 
   if (emailElement) {
     emailElement.textContent = userEmail ? userEmail : "예약확인";
-    emailElement.addEventListener("click", function () {
-      window.location.href = userEmail ? "my-booking.html" : "login.html";
-    });
+
+    if (!userEmail) {
+      emailElement.addEventListener("click", function () {
+        window.location.href = "login.html";
+      });
+    }
   }
 }
