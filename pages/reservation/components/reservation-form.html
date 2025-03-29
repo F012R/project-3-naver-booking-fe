@@ -1,1 +1,310 @@
-reservation-form
+<style>
+  .ticket-count {
+    padding: 10px;
+  }
+  li {
+    list-style: none;
+  }
+  .ticket-discount-info {
+    color: lightgray;
+  }
+  .single-ticket-type {
+    padding: 8px 2px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .single-ticket-type > div {
+    display: inline-block;
+  }
+  .ticket-info {
+    width: 50%;
+  }
+  .right-ticket-controll {
+    width: 40%;
+  }
+
+  .ticket-price-controll {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .ticket-price-controll > * {
+    display: inline;
+    width: 21px; /* 정사각형 크기 */
+    height: 21px; /* 정사각형 크기 */
+    text-align: center;
+    /* font-size: 16px; */
+    box-sizing: border-box; /* padding과 border 포함 */
+    padding: 0;
+    margin: 0;
+  }
+
+  .ticket-type-num {
+    text-align: center;
+    border: 1px solid gray;
+    border-left: 0;
+    border-right: 0;
+    background-color: white;
+    font-size: 16px;
+    line-height: normal;
+    overflow: hidden;
+    appearance: textfield; /* 기본 스타일 제거 */
+  }
+
+  .minus-btn,
+  .plus-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .minus-btn {
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+    font-size: 18px;
+  }
+  .minus-btn::before {
+    font-family: "Naver booking Icons";
+    content: "\EA0F";
+  }
+  .active-minus-btn {
+    color: #0dab3c;
+    border: 1px solid #0dab3c;
+  }
+
+  .plus-btn {
+    font-family: "Naver booking Icons";
+    background-color: #0dab3c;
+    color: white;
+    border: 1px solid #0dab3c;
+  }
+  .plus-btn::before {
+    content: "\EA19";
+  }
+
+  /* 예매자 정보 입력 */
+  .reservation-info-input-container {
+    padding: 10px 8px;
+  }
+
+  .requrired-mark::before,
+  .input-label::before {
+    /* font-family: "Naver Icons";
+      content: "\EA35";
+      font-size: 10px; */
+    font-family: "Naver booking Icons";
+    content: "\EA05";
+    font-size: 10px;
+    color: #0dab3c;
+    font-weight: 800;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .reserve-person-title {
+    display: flex;
+    justify-content: space-between; /* 제목과 필수입력 간 간격을 최대로 */
+    align-items: center; /* 세로 중앙 정렬 */
+  }
+
+  .requrired-mark {
+    margin-left: auto; /* 왼쪽 마진을 자동으로 주어 오른쪽 정렬 */
+  }
+
+  .input-container > div {
+    display: grid;
+    grid-template-columns: 100px auto;
+    margin-top: 10px;
+    /* vertical-align: center; */
+  }
+
+  .reservation-info-input-container {
+    width: auto;
+  }
+
+  /* 약관 */
+  .tos-label-container {
+    position: relative;
+    padding: 5px 10px;
+  }
+  .required-agree {
+    position: absolute;
+    right: 0;
+    color: gray;
+  }
+  .tos-description {
+    border: 1px solid lightgray;
+    padding: 10px;
+  }
+
+  .tos-container {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+  }
+  .single-tos-container {
+    padding-left: 15px;
+    padding-right: 5px;
+    color: gray;
+  }
+
+  .tos-title {
+    padding: 5px 0px;
+    display: flex;
+    justify-content: space-between; /* 자식 요소들 사이의 간격을 최대로 */
+    align-items: center; /* 세로 중앙 정렬 */
+  }
+
+  .tos-name {
+    display: inline-block;
+    text-align: left;
+  }
+  .folding-btn,
+  .unfolding-btn {
+    text-decoration: underline;
+    color: grey;
+    display: inline-block;
+    text-align: right;
+  }
+
+  .tos-container img {
+    height: 9px;
+    vertical-align: middle;
+    margin-left: 3px;
+  }
+
+  /* 예매하기 버튼 */
+  .booking {
+    padding: 5px 10px;
+    background-color: #e9ecef;
+  }
+  .reservation-btn {
+    background-color: lightgray;
+    border: 1px solid grey;
+    color: white;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .reservation-btn::before {
+    font-family: "Naver booking Icons";
+    content: "\EA0F";
+  }
+
+  .green-btn {
+    background-color: green;
+    color: white;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<form action="/test" method="post" class="reservaction-form-container">
+  <section>
+    <ul class="ticket-count">
+      <template class="ticket-type-template">
+        <li class="single-ticket-type">
+          <div class="ticket-info">
+            <div class="ticket-type-name">{{priceTypeName}}</div>
+            <div class="ticket-type-price">{{ticketPrice}}원</div>
+            <div class="ticket-discount-info">{{ticketPrice}}원 ({{rate}} 할인가)</div>
+          </div>
+          <div class="right-ticket-controll">
+            <div class="ticket-price-controll">
+              <button class="minus-btn" onclick="minus(this, {index})" disabled></button>
+              <input
+                type="number"
+                class="ticket-type-num"
+                value="0"
+                name="${element.priceTypeName}TypeTicketNum"
+                readonly
+              />
+              <button class="plus-btn" onclick="plus(this, {index})"></button>
+            </div>
+            <div><span class="type-sum-price">0</span>원</div>
+          </div>
+        </li>
+      </template>
+    </ul>
+  </section>
+
+  <section class="reservation-person-info">
+    <div class="reservation-info-input-container">
+      <div class="reserve-person-title">예매자 정보 <span class="requrired-mark">필수입력</span></div>
+      <div class="input-container">
+        <div class="name input-single-case">
+          <label class="input-label" for="name">예매자</label>
+          <input type="text" name="name" placeholder="네이버" required />
+        </div>
+        <div class="phone-number">
+          <span class="input-label">연락처</span>
+          <input
+            type="tel"
+            name="phone-number"
+            placeholder="휴대폰 입력 시 예매내역 문자발송"
+            pattern="[0-9]{2,3}-[0-9]{4}-[0-9]{4}"
+            required
+          />
+        </div>
+        <div class="email">
+          <label class="input-label" for="email">이메일</label>
+          <input type="email" name="email" placeholder="crong@codesquad.kr" required />
+        </div>
+        <div class="reservation-readonly-info">
+          <div class="reserve-readonly-info-title">예약정보</div>
+          <div class="reservation-readonly-info-text">
+            <span class="reservation-date">2025.03.12</span><span>, 총 </span> <span class="total-ticket-count">0</span
+            ><span>매</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="tos terms-and-conditions">
+    <div class="tos-label-container">
+      <input type="checkbox" class="tos-cbox" name="tos-cbox" />
+      <label for="tos-cbox" class="tos-total-agree">이용자 약관 전체 동의 </label>
+      <span class="required-agree">필수동의</span>
+    </div>
+    <article class="tos-container">
+      <div class="single-tos-container">
+        <div class="tos-title">
+          <div class="tos-name">&#8735; 개인정보 수집 및 이용 동의</div>
+          <div class="folding-btn">접기 <img src="../../assets/images/spr_book_folding.png" alt="^" /></div>
+          <span class="unfolding-btn hidden"
+            >보기 <img src="../../assets/images/spr_book_unfolding.png" alt="∨"
+          /></span>
+        </div>
+        <div class="tos-description">
+          <개인정보 수집 및 이용 동의 ><br />
+          1. 수집항목: [필수] 이름, 연락처, [선택] 이메일주소<br /><br />
+
+          2. 수집 및 이용목적: 사업자회원과 예약 이용자의 원활한 거래 진행, 고객 상담, 불만 처리 등등 민원 처리, 분쟁
+          조정 해결을 위한 기록 보존, 네이버 예약 이용 후 리뷰작성
+        </div>
+      </div>
+      <div class="single-tos-container">
+        <div class="tos-title">
+          &#8735; 개인정보 제3자 제공 동의
+          <span class="folding-btn">접기 <img src="../../assets/images/spr_book_folding.png" alt="∨" /></span>
+          <span class="unfolding-btn hidden"
+            >보기 <img src="../../assets/images/spr_book_unfolding.png" alt="∨"
+          /></span>
+        </div>
+        <div class="tos-description">
+          <개인정보 제3자 제공 동의><br />
+          1. 수집항목: [필수] 이름, 연락처, [선택] 이메일주소<br /><br />
+
+          2. 수집 및 이용목적: 사업자회원과 예약 이용자의 원활한 거래 진행, 고객 상담, 불만 처리 등등 민원 처리, 분쟁
+          조정 해결을 위한 기록 보존, 네이버 예약 이용 후 리뷰작성
+        </div>
+      </div>
+    </article>
+  </section>
+  <section class="booking">
+    <input class="reservation-btn" type="submit" value="예약하기" />
+    <a href="/pages/reservation/reservation.html"> 예약하기 </a>
+  </section>
+</form>
