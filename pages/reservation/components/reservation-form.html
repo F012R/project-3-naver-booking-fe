@@ -60,10 +60,8 @@
 
   .ticket-type-num {
     text-align: center;
-    border: 1px solid gray;
     border-left: 0;
     border-right: 0;
-    background-color: white;
     font-size: 16px;
     line-height: normal;
     overflow: hidden;
@@ -75,16 +73,28 @@
     align-items: center;
     justify-content: center;
   }
-  .minus-btn {
-    background-color: white;
-    color: gray;
-    border: 1px solid gray;
-  }
+
   .minus-btn::before {
     font-family: "Naver booking Icons";
     content: "\EA0F";
   }
-  .active-minus-btn {
+
+  .minus-btn:disabled {
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+  }
+  .minus-btn:disabled + .ticket-type-num {
+    color: gray;
+    border: 1px solid gray;
+  }
+
+  .minus-btn {
+    color: #0dab3c;
+    border: 1px solid #0dab3c;
+    background-color: white;
+  }
+  .minus-btn + .ticket-type-num {
     color: #0dab3c;
     border: 1px solid #0dab3c;
   }
@@ -151,10 +161,6 @@
   .terms-and-conditions {
     padding-top: 5px;
   }
-  /* .tos-label-container {
-    position: relative;
-    padding: 5px 10px;
-  } */
 
   .tos-label-container {
     display: flex;
@@ -164,7 +170,6 @@
     padding: 5px 10px;
   }
   .tos-cbox {
-    /* 스크린 리더를 고려해서 체크박스를 화면에서 숨김 */
     display: none;
   }
 
@@ -266,6 +271,14 @@
     background-color: #e9ecef;
   }
   .reservation-btn {
+    background-color: #0dab3c;
+    border: 1px solid #0dab3c;
+    color: white;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .reservation-btn:disabled {
     background-color: lightgray;
     border: 1px solid #cbcbcd;
     color: white;
@@ -277,11 +290,6 @@
     height: 16px;
     vertical-align: middle;
     margin-right: 3px;
-  }
-
-  .green-reservation-btn {
-    background-color: #0dab3c;
-    border: none;
   }
 
   .hidden {
@@ -331,16 +339,6 @@
     </div>
   </section>
   <section class="tos terms-and-conditions">
-    <!-- <div class="tos-control-container">
-      <input type="checkbox" class="tos-cbox" name="tos-cbox" />
-      <div class="tos-label-container">
-        <span class="check-icon" aria-hidden="true"></span>
-        <label for="tos-cbox" class="tos-total-agree">이용자 약관 전체 동의 </label>
-
-        <span class="required-agree">필수동의</span>
-      </div>
-    </div> -->
-
     <div class="tos-label-container">
       <input type="checkbox" id="tos-cbox" class="tos-cbox" name="tos-cbox" />
       <label for="tos-cbox" class="tos-total-agree">
@@ -381,7 +379,7 @@
     </article>
   </section>
   <section class="booking">
-    <button class="reservation-btn">
+    <button class="reservation-btn" disabled>
       <img src="/assets/images/spr_bi_naver_white.png" alt="네이버로고" /> 예약하기
     </button>
   </section>

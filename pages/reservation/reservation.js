@@ -15,7 +15,6 @@ function loadComponent(id, url, callback) {
 }
 
 // reservation-from 시작
-
 // 한 Ticket 타입 정보
 function Ticket(priceTypeName, price, discountRate) {
   this.price = price;
@@ -23,7 +22,7 @@ function Ticket(priceTypeName, price, discountRate) {
   this.discountRate = discountRate; // 할인율
   this.ticketNum = 0; // 사용자가 지정한 티켓 수
 }
-// 프로토타입 메서드
+// 티켓 프로토타입 메서드
 Ticket.prototype = {
   getTicketNum() {
     return this.ticketNum;
@@ -53,14 +52,6 @@ const ticketListObj = {
     });
 
     return sum;
-  },
-  isValid() {
-    this.tickets.forEach((element) => {
-      if (element.getTicketNum() > 0) {
-        return true;
-      }
-    });
-    return false;
   },
 };
 
@@ -105,7 +96,8 @@ function initProductForm() {
   // form 에 텍스트가 수정되거나 / checkbox가 클릭되는 경우
   var reservFormContainer = document.querySelector(".reservaction-form-container");
   reservFormContainer.addEventListener("input", function () {
-    toggleReservationBtn(isBtnValid());
+    // 예약 버튼의 활성화 조건이 만족되는지 여부 검사 / 결과에 따른 활성화/비활성화
+    toggleReservationBtn(checkReservationBtnValid());
   });
 }
 
@@ -187,8 +179,6 @@ function minusTicketCount(targetElement, index) {
   if (ticketNum.value === "0") {
     toggleReservationBtn(false);
     parentElement.querySelector(".minus-btn").disabled = true;
-    parentElement.querySelector(".minus-btn").classList.remove("active-minus-btn");
-    parentElement.querySelector(".ticket-type-num").classList.remove("active-minus-btn");
   }
 }
 
@@ -197,7 +187,6 @@ function plusTicketCount(targetElement, index) {
   // 티켓 수 업데이트: 1 증가
   ticketList[index].updateTicketNum(1);
 
-  // 현재 티켓 타입의 금액 합산 업데이트
   var parentElement = targetElement.closest(".ticket-price-controll");
   var ticketNum = parentElement.querySelector(".ticket-type-num");
   ticketNum.value = ticketList[index].getTicketNum();
@@ -206,36 +195,31 @@ function plusTicketCount(targetElement, index) {
   var sumPrice = ticketList[index].getTicketNum() * ticketList[index].price;
   sumPriceElement.innerText = sumPrice.toLocaleString("ko-KR");
 
-  // 모든 타입의 티켓 금액 합산 업데이트
   updateSumTicketCount();
 
   // plus 버튼 클릭 -> 티켓 수가 1 이상-> minus-btm 활성화 및 색 변화
   parentElement.querySelector(".minus-btn").disabled = false;
-  parentElement.querySelector(".minus-btn").classList.add("active-minus-btn");
-  parentElement.querySelector(".ticket-type-num").classList.add("active-minus-btn");
 
   // 예약 버튼이 활성화 가능하면 활성화하기
-  toggleReservationBtn(isBtnValid());
+  toggleReservationBtn(checkReservationBtnValid());
 }
 
-// 모든 타입의 티켓 수 세기
+// 모든 타입의 티켓 수 업데이트
 function updateSumTicketCount() {
-  var sumCount;
-
-  sumCount = ticketListObj.sumTicketCount();
+  var sumCount = ticketListObj.sumTicketCount();
 
   var target = document.querySelector(".total-ticket-count");
   target.innerText = sumCount;
 }
 
-// 예약 버튼의 조건이 만족되는지 검사
-function isBtnValid() {
+// 예약 버튼의 활성화 조건이 만족되는지 검사
+function checkReservationBtnValid() {
   var ticketValid = ticketListObj.sumTicketCount() > 0;
   var todValid = document.querySelector(".tos-cbox").checked;
   return ticketValid && todValid && checkTextValid();
 }
 
-// 연락처와 이메일 유효성 검사
+// 이름과 연락처와 이메일 유효성 검사
 function checkTextValid() {
   var name = document.querySelector("input[name='name']").value;
   var phoneNumber = document.querySelector("input[name='phone-number']").value;
@@ -251,9 +235,7 @@ function toggleReservationBtn(status) {
   if (status) {
     // 버튼 활성화 조건이 만족된 경우
     reservationBtn.disabled = false;
-    reservationBtn.classList.add("green-reservation-btn");
   } else {
     reservationBtn.disabled = true;
-    reservationBtn.classList.remove("green-reservation-btn");
   }
 }
