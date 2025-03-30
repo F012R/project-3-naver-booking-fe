@@ -51,9 +51,11 @@ const ticketListObj = {
     this.tickets.forEach((element) => {
       sum += element.getTicketNum();
     });
+
+    return sum;
   },
   isValid() {
-    tickets.forEach((element) => {
+    this.tickets.forEach((element) => {
       if (element.getTicketNum() > 0) {
         return true;
       }
@@ -69,12 +71,14 @@ function initProductForm() {
   (async () => {
     var productPriceData = await getProductPriceJson(currentProductId);
     productPriceData.forEach((element) => {
+      // product price 정보를 Ticket에 저장 및 화면에 출력
       ticketList.push(new Ticket(element.priceTypeName, element.price, element.discountRate));
       var eventInfoText = makeTicketInfo(element, productPriceData.indexOf(element));
       document.querySelector(".ticket-count").innerHTML += eventInfoText;
     });
   })();
 
+  // 약관 동의 설명 접기 버튼
   var foldingBtn = document.querySelectorAll(".folding-btn");
   foldingBtn.forEach((element) => {
     element.addEventListener("click", function (evt) {
@@ -83,21 +87,25 @@ function initProductForm() {
       tosDesc.classList.add("hidden");
       tosContainer.querySelector(".unfolding-btn").classList.remove("hidden");
       evt.target.classList.add("hidden");
-      console.log(evt.target);
     });
   });
 
-  var foldingBtn = document.querySelectorAll(".unfolding-btn");
-  foldingBtn.forEach((element) => {
+  //약관 동의 설명 펴기 버튼
+  var unfoldingBtn = document.querySelectorAll(".unfolding-btn");
+  unfoldingBtn.forEach((element) => {
     element.addEventListener("click", function (evt) {
-      console.log("unfolding");
       tosContainer = evt.target.closest(".single-tos-container");
       tosDesc = tosContainer.querySelector(".tos-description");
       tosDesc.classList.remove("hidden");
       tosContainer.querySelector(".folding-btn").classList.remove("hidden");
       evt.target.classList.add("hidden");
-      console.log(evt.target);
     });
+  });
+
+  // form 에 텍스트가 수정되거나 / checkbox가 클릭되는 경우
+  var reservFormContainer = document.querySelector(".reservaction-form-container");
+  reservFormContainer.addEventListener("input", function () {
+    toggleReservationBtn(isBtnValid());
   });
 }
 
@@ -124,18 +132,20 @@ function makeTicketInfo(data, index) {
       <li class="single-ticket-type">
         <div class="ticket-info">
           <div class="ticket-type-name">${typeNameMap[data.priceTypeName] || notDef} </div>
-          <div class="ticket-type-price">${data.price.toLocaleString("ko-KR")}원</div>
-          <div class="ticket-discount-info">${data.price.toLocaleString("ko-KR")}원 ${
-    rate > 0 ? `(${rate}% 할인가)` : ""
-  }</div>
+          <div class="ticket-type-price-wrapper">
+            <span class="ticket-type-price">${data.price.toLocaleString("ko-KR")}</span>원
+          </div>
+          <div class="ticket-discount-info">
+            ${data.price.toLocaleString("ko-KR")}원 ${rate > 0 ? `(${rate}% 할인가)` : "정가"}
+          </div>
         </div>
         <div class="right-ticket-controll">
           <div class="ticket-price-controll">
-            <button class="minus-btn" onclick="minus(evt, this, ${index})" disabled></button>
+            <button type="button" class="minus-btn" onClick="minusTicketCount(this, ${index})" disabled></button>
             <input type="tel" class="ticket-type-num" value="0" name="${data.priceTypeName}TypeTicketNum" readonly/>
-            <button class="plus-btn" onclick="plus(evt, this, ${index})"></button>
+            <button type="button" class="plus-btn" onClick="plusTicketCount(this, ${index})"></button>
           </div>
-          <div><span class="type-sum-price">0</span>원</div>
+          <div class="type-sum-price-wrapper"><span class="type-sum-price">0</span>원</div>
         </div>
       </li>
       `;
@@ -150,63 +160,100 @@ async function getProductPriceJson(value) {
     if (!response.ok) throw new Error("데이터 가져오기 실패");
     var jsonData = await response.json();
     return jsonData.filter((data) => data["productId"] === value);
-    // return await response.json();
   } catch (error) {
     console.error("Error:", error);
     return [];
   }
 }
 
-function minus(evt, targetElement, index) {
-  evt.preventDefault();
+// 티켓 수 증감 버튼 중 - 버튼을 누른 경우
+function minusTicketCount(targetElement, index) {
   ticketList[index].updateTicketNum(-1); // 버튼을 누른 ticket의 티켓 수 감소
 
-  var sumPriceElement = targetElement.closest(".single-ticket-type").querySelector(".type-sum-price");
-  var sumPrice = ticketList[index].getTicketNum() * ticketList[index].price;
-  sumPriceElement.innerText = sumPrice.toLocaleString("ko-KR"); // 티켓 금액 합산 수정
-  updateSumTicketCount(); // 모든 타입의 티켓 금액 합산 업데이트
-
+  // 티켓 수 업데이트 : 1 감소
   var parentElement = targetElement.closest(".ticket-price-controll");
   var ticketNum = parentElement.querySelector(".ticket-type-num");
-  ticketNum.value = ticketList[index].getTicketNum(); // 티켓 수 업데이트 : 1 감소
+  ticketNum.value = ticketList[index].getTicketNum();
 
+  // 현재 티켓 타입의 금액 합산 업데이트
+  var sumPriceElement = targetElement.closest(".single-ticket-type").querySelector(".type-sum-price");
+  var sumPrice = ticketList[index].getTicketNum() * ticketList[index].price;
+  sumPriceElement.innerText = sumPrice.toLocaleString("ko-KR");
+
+  // 모든 타입의 티켓 금액 합산 업데이트
+  updateSumTicketCount();
+
+  // 티켓 수가 0이면 마이너스 버튼과 예약 버튼 비활성화 및 버튼 색 변경
   if (ticketNum.value === "0") {
-    // 티켓 수가 0이면 마이너스 버튼 비활성화 및 버튼 색 변경
+    toggleReservationBtn(false);
     parentElement.querySelector(".minus-btn").disabled = true;
     parentElement.querySelector(".minus-btn").classList.remove("active-minus-btn");
     parentElement.querySelector(".ticket-type-num").classList.remove("active-minus-btn");
   }
 }
 
-function plus(evt, targetElement, index) {
-  evt.preventDefault();
+// 티켓 수 증감 버튼 중 + 버튼을 누른 경우
+function plusTicketCount(targetElement, index) {
+  // 티켓 수 업데이트: 1 증가
   ticketList[index].updateTicketNum(1);
-  var sumPriceElement = targetElement.closest(".single-ticket-type").querySelector(".type-sum-price");
-  var sumPrice = ticketList[index].getTicketNum() * ticketList[index].price;
 
-  sumPriceElement.innerText = sumPrice.toLocaleString("ko-KR");
-
-  updateSumTicketCount();
-
+  // 현재 티켓 타입의 금액 합산 업데이트
   var parentElement = targetElement.closest(".ticket-price-controll");
   var ticketNum = parentElement.querySelector(".ticket-type-num");
   ticketNum.value = ticketList[index].getTicketNum();
+
+  var sumPriceElement = targetElement.closest(".single-ticket-type").querySelector(".type-sum-price");
+  var sumPrice = ticketList[index].getTicketNum() * ticketList[index].price;
+  sumPriceElement.innerText = sumPrice.toLocaleString("ko-KR");
+
+  // 모든 타입의 티켓 금액 합산 업데이트
+  updateSumTicketCount();
 
   // plus 버튼 클릭 -> 티켓 수가 1 이상-> minus-btm 활성화 및 색 변화
   parentElement.querySelector(".minus-btn").disabled = false;
   parentElement.querySelector(".minus-btn").classList.add("active-minus-btn");
   parentElement.querySelector(".ticket-type-num").classList.add("active-minus-btn");
 
-  // console.log("pllus");
+  // 예약 버튼이 활성화 가능하면 활성화하기
+  toggleReservationBtn(isBtnValid());
 }
 
+// 모든 타입의 티켓 수 세기
 function updateSumTicketCount() {
   var sumCount;
-  sumCount = 0;
-  ticketList.forEach((e) => {
-    sumCount += e.getTicketNum();
-  });
+
+  sumCount = ticketListObj.sumTicketCount();
 
   var target = document.querySelector(".total-ticket-count");
   target.innerText = sumCount;
+}
+
+// 예약 버튼의 조건이 만족되는지 검사
+function isBtnValid() {
+  var ticketValid = ticketListObj.sumTicketCount() > 0;
+  var todValid = document.querySelector(".tos-cbox").checked;
+  return ticketValid && todValid && checkTextValid();
+}
+
+// 연락처와 이메일 유효성 검사
+function checkTextValid() {
+  var name = document.querySelector("input[name='name']").value;
+  var phoneNumber = document.querySelector("input[name='phone-number']").value;
+  var email = document.querySelector("input[name='email']").value;
+
+  var nameValid = name.length > 0;
+  var phoneValid = /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber);
+  var emailValid = /\w+@\w+\.\w+/.test(email);
+  return nameValid && phoneValid && emailValid;
+}
+function toggleReservationBtn(status) {
+  var reservationBtn = document.querySelector(".reservation-btn");
+  if (status) {
+    // 버튼 활성화 조건이 만족된 경우
+    reservationBtn.disabled = false;
+    reservationBtn.classList.add("green-reservation-btn");
+  } else {
+    reservationBtn.disabled = true;
+    reservationBtn.classList.remove("green-reservation-btn");
+  }
 }
