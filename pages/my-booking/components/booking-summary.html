@@ -1,1 +1,120 @@
-booking-summary
+<style>
+  .gnb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #03c75a;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 60px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .right {
+    font-size: 16px;
+    display: flex;
+  }
+
+  .reservation-tabs {
+    background-color: #03c75a;
+  }
+
+  .tabs-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .tab-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .tab-count {
+    font-size: 19px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .tab.active .tab-label,
+  .tab.active .tab-count {
+    color: #bbfc80;
+  }
+
+  .tab-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+  }
+</style>
+
+<section class="gnb">
+  <div class="left">
+    <img src="/assets/images/spr_bi_sub.png" alt="네이버 로고" class="logo" />
+  </div>
+  <div class="right">
+    <span id="user-email">예약확인</span>
+  </div>
+</section>
+
+<div class="reservation-tabs">
+  <div class="tabs-container">
+    <div class="tab active" data-tab="전체">
+      <span class="tab-label">
+        <img class="tab-icon" alt="전체 아이콘" />
+        전체
+      </span>
+      <!-- 이곳에 실제 전체체 예약 개수 표시 -->
+      <span class="tab-count">10</span>
+    </div>
+    <div class="tab" data-tab="이용예정">
+      <span class="tab-label">
+        <img class="tab-icon" alt="이용예정 아이콘" />
+        이용예정
+      </span>
+      <!-- 이곳에 실제 이용예정정 개수 표시 -->
+      <span class="tab-count">5</span>
+    </div>
+    <div class="tab" data-tab="이용완료">
+      <span class="tab-label">
+        <img class="tab-icon" alt="이용완료 아이콘" />
+        이용완료
+      </span>
+      <!-- 이곳에 실제 이용완료 개수 표시 -->
+      <span class="tab-count">3</span>
+    </div>
+    <div class="tab" data-tab="취소·환불">
+      <span class="tab-label">
+        <img class="tab-icon" alt="취소·환불 아이콘" />
+        취소·환불
+      </span>
+      <!-- 이곳에 실제 취소·환불 개수 표시 -->
+      <span class="tab-count">2</span>
+    </div>
+  </div>
+</div>
