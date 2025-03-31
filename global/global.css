@@ -78,6 +78,14 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0px;
+}
+
+span {
+  margin: 0px;
+}
+
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
