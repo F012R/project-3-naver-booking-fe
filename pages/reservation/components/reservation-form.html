@@ -1,1 +1,386 @@
-reservation-form
+<style>
+  .all-ticket-info-container {
+    padding-top: 5px;
+    background-color: #e9ecef;
+  }
+  .ticket-count {
+    padding: 0px 10px;
+    background-color: white;
+  }
+  li {
+    list-style: none;
+  }
+  .ticket-discount-info {
+    color: lightgray;
+  }
+  .single-ticket-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 2px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .single-ticket-type > div {
+    display: inline-block;
+  }
+
+  .ticket-info {
+    width: 50%;
+    margin: 0px;
+  }
+
+  .ticket-type-name,
+  .ticket-type-price {
+    font-weight: bold;
+  }
+
+  .right-ticket-controll {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .ticket-price-controll {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .ticket-price-controll > * {
+    display: inline;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ticket-type-num {
+    text-align: center;
+    border-left: 0;
+    border-right: 0;
+    font-size: 16px;
+    line-height: normal;
+    overflow: hidden;
+  }
+
+  .minus-btn,
+  .plus-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .minus-btn::before {
+    font-family: "Naver booking Icons";
+    content: "\EA0F";
+  }
+
+  .minus-btn:disabled {
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+  }
+  .minus-btn:disabled + .ticket-type-num {
+    color: gray;
+    border: 1px solid gray;
+  }
+
+  .minus-btn {
+    color: #0dab3c;
+    border: 1px solid #0dab3c;
+    background-color: white;
+  }
+  .minus-btn + .ticket-type-num {
+    color: #0dab3c;
+    border: 1px solid #0dab3c;
+  }
+
+  .plus-btn {
+    font-family: "Naver booking Icons";
+    background-color: #0dab3c;
+    color: white;
+    border: 1px solid #0dab3c;
+  }
+  .plus-btn::before {
+    content: "\EA19";
+  }
+
+  .type-sum-price-wrapper {
+    padding-top: 5px;
+  }
+  .type-sum-price {
+    font-weight: 600;
+  }
+
+  /* 예매자 정보 입력 */
+  .reservation-info-input-container {
+    padding: 10px 8px;
+    background-color: white;
+  }
+
+  .requrired-mark::before,
+  .input-label::before {
+    font-family: "Naver booking Icons";
+    content: "\EA05";
+    font-size: 10px;
+    color: #0dab3c;
+    font-weight: 800;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .reserve-person-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid lightgray;
+  }
+  .reserve-person-title-text {
+    font-weight: bold;
+  }
+  .requrired-mark {
+    margin-left: auto;
+  }
+
+  .input-container > div {
+    display: grid;
+    grid-template-columns: 100px auto;
+    margin-top: 10px;
+  }
+
+  .reserve-readonly-info-title {
+    margin-left: 20px;
+  }
+
+  /* 약관 */
+  .terms-and-conditions {
+    padding-top: 5px;
+  }
+
+  .tos-label-container {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+  }
+  .tos-cbox {
+    display: none;
+  }
+
+  .tos-total-agree {
+    display: flex;
+    align-items: center;
+    height: 18px;
+  }
+
+  .custom-checkbox {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border: 2px solid gray;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    margin-right: 8px;
+  }
+
+  /* 체크박스가 체크되지 않았을 때 */
+  .custom-checkbox::before {
+    font-family: "Naver booking Icons";
+    content: "\EA05";
+    font-size: 12px;
+    color: gray;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  /* 체크박스가 체크되었을 때 */
+  .tos-cbox:checked + .tos-total-agree .custom-checkbox {
+    background-color: #0dab3c;
+    border-color: #0dab3c;
+  }
+
+  /* 체크된 상태에서 체크 표시 변경 */
+  .tos-cbox:checked + .tos-total-agree .custom-checkbox::before {
+    color: white;
+  }
+
+  .required-agree {
+    position: absolute;
+    right: 10px;
+    color: gray;
+  }
+  .tos-total-agree {
+    font-weight: bold;
+  }
+  .tos-description {
+    border: 1px solid lightgray;
+    border-left: none;
+    padding: 10px;
+    background-color: #fcfcfc;
+  }
+
+  .tos-container {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+  }
+  .single-tos-container {
+    padding-left: 15px;
+    padding-right: 5px;
+    color: gray;
+    padding-bottom: 10px;
+  }
+
+  .tos-title {
+    padding: 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tos-name {
+    display: inline-block;
+    text-align: left;
+  }
+  .folding-btn,
+  .unfolding-btn {
+    text-decoration: underline;
+    color: grey;
+    display: inline-block;
+    text-align: right;
+  }
+
+  .tos-container img {
+    height: 9px;
+    vertical-align: middle;
+    margin-left: 3px;
+  }
+
+  /* 예매하기 버튼 */
+  .booking {
+    padding: 5px 10px;
+    background-color: #e9ecef;
+  }
+  .reservation-btn {
+    background-color: #0dab3c;
+    border: 1px solid #0dab3c;
+    color: white;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .reservation-btn:disabled {
+    background-color: lightgray;
+    border: 1px solid #cbcbcd;
+    color: white;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .reservation-btn img {
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<form action="/test" method="post" class="reservaction-form-container">
+  <section class="all-ticket-info-container">
+    <ul class="ticket-count">
+      <!-- product price 정보를 담은 각 티켓 정보 영역 -->
+    </ul>
+  </section>
+
+  <section class="reservation-person-info">
+    <div class="reservation-info-input-container">
+      <div class="reserve-person-title">
+        <span class="reserve-person-title-text">예매자 정보</span> <span class="requrired-mark">필수입력</span>
+      </div>
+      <div class="input-container">
+        <div class="name input-single-case">
+          <label class="input-label" for="name">예매자</label>
+          <input type="text" name="name" placeholder="네이버" required />
+        </div>
+        <div class="phone-number">
+          <span class="input-label">연락처</span>
+          <input
+            type="tel"
+            name="phone-number"
+            placeholder="휴대폰 입력 시 예매내역 문자발송"
+            pattern="[0-9]{2,3}-[0-9]{4}-[0-9]{4}"
+            required
+          />
+        </div>
+        <div class="email">
+          <label class="input-label" for="email">이메일</label>
+          <input type="email" name="email" placeholder="crong@codesquad.kr" required />
+        </div>
+        <div class="reservation-readonly-info">
+          <div class="reserve-readonly-info-title">예약정보</div>
+          <div class="reservation-readonly-info-text">
+            <span class="reservation-date">2025.03.12</span><span>, 총 </span> <span class="total-ticket-count">0</span
+            ><span>매</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="tos terms-and-conditions">
+    <div class="tos-label-container">
+      <input type="checkbox" id="tos-cbox" class="tos-cbox" name="tos-cbox" />
+      <label for="tos-cbox" class="tos-total-agree">
+        <span class="custom-checkbox"></span>
+        이용자 약관 전체 동의
+      </label>
+      <span class="required-agree">필수동의</span>
+    </div>
+    <article class="tos-container">
+      <div class="single-tos-container">
+        <div class="tos-title">
+          <div class="tos-name">&#8735; 개인정보 수집 및 이용 동의</div>
+          <div class="folding-btn">접기 <img src="../../assets/images/spr_book_unfolding.png" alt="^" /></div>
+          <span class="unfolding-btn hidden">보기 <img src="../../assets/images/spr_book_folding.png" alt="∨" /></span>
+        </div>
+        <div class="tos-description">
+          <개인정보 수집 및 이용 동의 ><br />
+          1. 수집항목: [필수] 이름, 연락처, [선택] 이메일주소<br /><br />
+
+          2. 수집 및 이용목적: 사업자회원과 예약 이용자의 원활한 거래 진행, 고객 상담, 불만 처리 등등 민원 처리, 분쟁
+          조정 해결을 위한 기록 보존, 네이버 예약 이용 후 리뷰작성
+        </div>
+      </div>
+      <div class="single-tos-container">
+        <div class="tos-title">
+          &#8735; 개인정보 제3자 제공 동의
+          <span class="folding-btn">접기 <img src="/assets/images/spr_book_unfolding.png" alt="∨" /></span>
+          <span class="unfolding-btn hidden">보기 <img src="/assets/images/spr_book_folding.png" alt="∨" /></span>
+        </div>
+        <div class="tos-description">
+          <개인정보 제3자 제공 동의><br />
+          1. 수집항목: [필수] 이름, 연락처, [선택] 이메일주소<br /><br />
+
+          2. 수집 및 이용목적: 사업자회원과 예약 이용자의 원활한 거래 진행, 고객 상담, 불만 처리 등등 민원 처리, 분쟁
+          조정 해결을 위한 기록 보존, 네이버 예약 이용 후 리뷰작성
+        </div>
+      </div>
+    </article>
+  </section>
+  <section class="booking">
+    <button class="reservation-btn" disabled>
+      <img src="/assets/images/spr_bi_naver_white.png" alt="네이버로고" /> 예약하기
+    </button>
+  </section>
+</form>
