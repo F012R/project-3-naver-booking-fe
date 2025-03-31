@@ -1,0 +1,148 @@
+<style>
+  .product-title {
+    border-top: 1px solid #dfdfe1;
+    border-bottom: 1px solid #dfdfe1;
+    background-color: #fbfbfd;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .product-title__button {
+    width: 100%;
+    display: inline-block;
+    padding: 10px 0;
+    border-radius: 4px;
+    color: #3a3a3c;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .product-title__button::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.5);
+    width: 37px;
+    height: 30px;
+    background-image: url(/assets/images/spr_book2.png);
+    background-size: 660px 800px;
+    background-repeat: no-repeat;
+    background-position: -148px -467px;
+  }
+
+  .review-container {
+    padding: 15px;
+  }
+
+  .rating-title {
+    text-align: center;
+  }
+
+  .stars-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .star {
+    appearance: none;
+    padding: 1px;
+    font-size: 50px;
+    color: #ff323e;
+  }
+
+  .star::before {
+    content: "☆";
+  }
+
+  .star:hover::before,
+  .star:has(~ .star:hover)::before,
+  .star:checked::before,
+  .star:has(~ .star:checked)::before {
+    content: "★";
+  }
+
+  .star:hover ~ .star::before {
+    content: "☆";
+  }
+
+  .stars-score {
+    padding:12px 0px 0px 10px;
+    font-size: 35px;
+  }
+
+  .write-review {
+    width: 364px;
+    height: 150px;
+    margin-top: 10px;
+    border: 1px solid #dfdfe1;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .bottom-wrapper {
+    display:flex;
+    border: 1px solid #dfdfe1;
+    padding: 12px 10px 10px;
+    margin-top: 2px;
+  }
+
+  .add-photo img {
+    padding-top:5px;
+    width: 100px;
+  }
+
+  .count-character{
+    padding:10px 5px 5px 85px;
+    color:#999;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px 0px;
+    color: #03c75a;
+    border: 0.5px solid #03c75a;
+    background-color: #fff;
+    margin-top: 15px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  button:hover {
+    color: #fff;
+    background-color: #03c75a;
+    cursor: pointer;
+  }
+</style> 
+<div class="product-title"><a href="javascript:history.back()" class="product-title__button">오디컴퍼니 주식회사</a></div>
+  <div class="review-container">
+    <div class="rating">
+      <p class="rating-title">별점과 이용경험을 남겨주세요.</p>
+      <div class="stars-wrapper">
+        <input type="radio" class="star star1" name="rating" value="1" />
+        <label for="star1"></label>
+        <input type="radio" class="star star2" name="rating" value="2" />
+        <label for="star2"></label>
+        <input type="radio" class="star star3" name="rating" value="3" />
+        <label for="star3"></label>
+        <input type="radio" class="star star4" name="rating" value="4" />
+        <label for="star4"></label>
+        <input type="radio" class="star star5" name="rating" value="5" />
+        <label for="star5"></label>
+        <span class="stars-score">0</span>
+      </div>
+      
+    </div>
+    <textarea class="write-review" placeholder="정말 재미있는 연극이었어요~!"></textarea>
+    <div class="bottom-wrapper">
+        <div class="add-photo">
+            <label for="fileInput"><img src="/assets/images/add_photo.png" alt="사진 추가 버튼" class="imageTrigger"/></label>
+            <input type="file" class="fileInput" accept="image/jpeg, image/png" style="display: none" />
+          </div>
+        <div class="count-character"><span class="now-character">123</span>/400 (최소 5자 이상)</div>
+    </div>
+    <button type="submit" class="submit-review">리뷰 등록</button>
+
+</div>
+</div>

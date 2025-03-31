@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  loadComponent("header", "/pages/review-list/components/header.html");
   loadComponent(
     "total-review",
     "/pages/review-list/components/total-review.html",
