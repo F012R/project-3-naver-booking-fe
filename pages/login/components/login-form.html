@@ -1,1 +1,71 @@
-login-form
+<style>
+  section {
+    background-color: #e9ecef;
+  }
+
+  .reservation-check-form {
+    padding: 15px;
+  }
+
+  .logo {
+    padding: 35px 0px 15px;
+    text-align: center;
+  }
+
+  .logo a {
+    display: block;
+    width: 155px;
+    height: 60px;
+    margin: 0 auto;
+    transform: scale(0.5);
+    background-image: url("/assets/images/spr_bi.png");
+    background-position: 0 -112px;
+    background-size: 260px 240px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  hr {
+    height: 0.1px;
+    background-color: #999;
+  }
+
+  input {
+    border: 0.5px solid #999;
+    width: 363px;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px 0px;
+    color: #03c75a;
+    border: 0.5px solid #03c75a;
+    background-color: #fff;
+    margin-bottom: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  button:hover {
+    color: #fff;
+    background-color: #03c75a;
+    cursor: pointer;
+  }
+</style>
+
+<section class="logo">
+  <a href="/public/index.html"></a>
+</section>
+
+<section class="reservation-check-form">
+  <form action="./myreservation.html">
+    <label>비회원 예약확인</label><br />
+    <hr />
+    <input type="text" placeholder="예약자 이메일 입력" />
+    <br />
+    <button type="submit">내 예약 확인</button>
+  </form>
+</section>
