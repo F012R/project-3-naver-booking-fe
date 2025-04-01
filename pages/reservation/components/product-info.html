@@ -1,159 +1,130 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 예약 상세 정보</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white;
-        }
-        .header {
-            position: relative;
-            height: 60px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-        }
-        .back-button {
-            position: absolute;
-            left: 15px;
-            cursor: pointer;
-        }
-        .header-title {
-            margin: 0 auto;
-            font-size: 18px;
-            font-weight: bold;
-            color: black;
-        }
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-        }
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-        .product-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .product-location {
-            font-size: 16px;
-            color: yellow;
-            margin-bottom: 5px;
-        }
-        .product-place {
-            font-size: 16px;
-            color: yellow;
-        }
-        .product-details {
-            padding: 20px;
-            background-color: white;
-        }
-        .product-description {
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .place-info {
-            margin-bottom: 15px;
-        }
-        .exhibition-time {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .exhibition-content {
-            line-height: 1.6;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="back-button" onclick="window.history.back()">
-            ← 
-        </div>
-        <div class="header-title" id="header-title">상품 상세</div>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .header {
+    position: relative;
+    height: 45px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+  }
+  .back-button {
+    position: absolute;
+    left: 15px;
+    cursor: pointer;
+  }
+  .back-button img {
+    width: 20px;
+    height: 20px;
+  }
+  .header-title {
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+  .product-image-container {
+    position: relative;
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  .product-title {
+    font-size: 20px;
+    margin-bottom: 7px;
+  }
+  .product-location {
+    font-size: 13px;
+    color: #e2d37c;
+    margin-bottom: 5px;
+  }
+  .product-place {
+    font-size: 13px;
+    color: #e2d37c;
+  }
+  .product-details {
+    padding: 10px 20px 20px;
+    background-color: white;
+  }
+  .exhibition-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .exhibition-title:first-child {
+    margin-top: 10px;
+  }
+  .exhibition-content {
+    line-height: 1.6;
+    font-size: 14px;
+  }
+</style>
+
+<div class="header">
+  <div class="back-button" onclick="window.history.back()">
+    <img src="/assets/images/left_arrow.png" alt="뒤로가기" />
+  </div>
+  <div class="header-title">브라더스 까라마조프</div>
+</div>
+
+<div class="product-image-container">
+  <img
+    src="/assets/images/18_ma_47.png"
+    alt="브라더스 까라마조프"
+    class="product-image"
+  />
+  <div class="image-overlay">
+    <div class="product-title">브라더스 까라마조프</div>
+    <div class="product-location">₩70,000~</div>
+    <div class="product-place">
+      2025.04.15 ~ 2025.06.30, 예술의전당 오페라하우스
     </div>
+  </div>
+</div>
 
-    <div class="product-image-container">
-        <img id="main-image" src="" alt="Product Image" class="product-image">
-        <div class="image-overlay">
-            <div class="product-title" id="product-title"></div>
-            <div class="product-location" id="product-location"></div>
-            <div class="product-place" id="product-place"></div>
-        </div>
-    </div>
+<div class="product-details">
+  <div class="exhibition-title">브라더스 까라마조프</div>
+  <div class="exhibition-content">
+    장소: 서울특별시 종로구 대학로 122 예술의전당 오페라하우스<br />기간:
+    2025.04.15 ~ 2025.06.30
+  </div>
 
-    <div class="product-details">
-        <div class="product-description" id="product-description"></div>
-        <div class="place-info" id="place-street"></div>
-        <div class="exhibition-time">관람시간</div>
-        <div class="exhibition-content" id="exhibition-content"></div>
-    </div>
+  <div class="exhibition-title">관람시간</div>
+  <div class="exhibition-content">
+    평일 19:30 / 토요일, 공휴일 14:00, 19:00 / 일요일 14:00<br />
+    휴관일: 매주 월요일
+  </div>
 
-    <script>
-        // API 호출 및 데이터 로딩 함수
-        async function fetchProductDetails(displayInfoId) {
-            try {
-                const response = await fetch(`/api/products/${displayInfoId}`);
-                if (!response.ok) {
-                    throw new Error('API 호출에 실패했습니다.');
-                }
-                const result = await response.json();
-                
-                // 헤더 타이틀 설정
-                document.getElementById('header-title').textContent = result.data.description;
-                
-                // 메인 이미지 설정
-                document.getElementById('main-image').src = result.data.mainImgUrl;
-                
-                // 이미지 오버레이 텍스트 설정
-                document.getElementById('product-title').textContent = result.data.description;
-                document.getElementById('product-location').textContent = result.data.placeLot;
-                document.getElementById('product-place').textContent = result.data.placeName;
-                
-                // 상세 정보 설정
-                document.getElementById('product-description').textContent = result.data.description;
-                document.getElementById('place-street').textContent = `장소: ${result.data.placeStreet}`;
-                document.getElementById('exhibition-content').textContent = result.data.content;
-            } catch (error) {
-                console.error('상품 정보를 불러오는 중 오류 발생:', error);
-                alert('상품 정보를 불러오지 못했습니다.');
-            }
-        }
-
-        // 페이지 로드 시 API 호출
-        // 실제 사용 시 displayInfoId를 적절히 전달해야 합니다.
-        document.addEventListener('DOMContentLoaded', () => {
-            const displayInfoId = 2; // 예시 displayInfoId, 실제로는 동적으로 받아와야 함
-            fetchProductDetails(displayInfoId);
-        });
-    </script>
-</body>
-</html>
+  <div class="exhibition-title">요금</div>
+  <div class="exhibition-content">
+    VIP석 150,000원 / R석 130,000원 / S석 100,000원 / A석 70,000원
+  </div>
+</div>
