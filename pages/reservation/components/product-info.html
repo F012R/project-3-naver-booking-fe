@@ -1,1 +1,130 @@
-product-info
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .header {
+    position: relative;
+    height: 45px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+  }
+  .back-button {
+    position: absolute;
+    left: 15px;
+    cursor: pointer;
+  }
+  .back-button img {
+    width: 20px;
+    height: 20px;
+  }
+  .header-title {
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+  .product-image-container {
+    position: relative;
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  .product-title {
+    font-size: 20px;
+    margin-bottom: 7px;
+  }
+  .product-price {
+    font-size: 13px;
+    color: #e2d37c;
+    margin-bottom: 5px;
+  }
+  .product-info {
+    font-size: 13px;
+    color: #e2d37c;
+  }
+  .product-details {
+    padding: 10px 20px 20px;
+    background-color: white;
+  }
+  .exhibition-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .exhibition-title:first-child {
+    margin-top: 10px;
+  }
+  .exhibition-content {
+    line-height: 1.6;
+    font-size: 14px;
+  }
+</style>
+
+<div class="header">
+  <div class="back-button" onclick="window.history.back()">
+    <img src="/assets/images/left_arrow.png" alt="뒤로가기" />
+  </div>
+  <div class="header-title">브라더스 까라마조프</div>
+</div>
+
+<div class="product-image-container">
+  <img
+    src="/assets/images/18_ma_47.png"
+    alt="브라더스 까라마조프"
+    class="product-image"
+  />
+  <div class="image-overlay">
+    <div class="product-title">브라더스 까라마조프</div>
+    <div class="product-price">₩70,000~</div>
+    <div class="product-info">
+      2025.04.15 ~ 2025.06.30, 예술의전당 오페라하우스
+    </div>
+  </div>
+</div>
+
+<div class="product-details">
+  <div class="exhibition-title">브라더스 까라마조프</div>
+  <div class="exhibition-content">
+    장소: 서울특별시 종로구 대학로 122 예술의전당 오페라하우스<br />기간:
+    2025.04.15 ~ 2025.06.30
+  </div>
+
+  <div class="exhibition-title">관람시간</div>
+  <div class="exhibition-content">
+    평일 19:30 / 토요일, 공휴일 14:00, 19:00 / 일요일 14:00<br />
+    휴관일: 매주 월요일
+  </div>
+
+  <div class="exhibition-title">요금</div>
+  <div class="exhibition-content">
+    VIP석 150,000원 / R석 130,000원 / S석 100,000원 / A석 70,000원
+  </div>
+</div>
